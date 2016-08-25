@@ -1,0 +1,15 @@
+Options +FollowSymLinks
+
+RewriteEngine On
+
+ErrorDocument 404 /~user/404.html
+
+# RewriteBase /
+
+# RewriteCond %{REQUEST_FILENAME} !-d
+
+RewriteCond %{REQUEST_FILENAME} !-f
+
+RewriteRule ^(.*)$ /ComicMyAdmin/index.php [QSA,L]
+
+
