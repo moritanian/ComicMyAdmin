@@ -10,4 +10,4 @@
 <p style="color: red;">ユーザ名またはパスワードが違います</p>
 <?php endif; ?>
 
-<a href="./Login/Registration"> 新規ログインへ </a>
+<a href="<?=$v->app_pos?>/Login/Registration"> 新規ログインへ </a>

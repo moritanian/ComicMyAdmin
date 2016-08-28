@@ -1,6 +1,117 @@
 .warn{
 	text-color: red;
 }
-.head{
-	background-color: red;
+.a-text-bold{
+	font-weight: 700!important;
+}
+.top-container {
+	#background-color: red;
+}
+
+.top-container .top-bar {
+	width: 500px;
+	#text-align: center;
+	height: 40px;
+	margin:0 20px 0;
+	background: linear-gradient(to bottom, rgba(84,84,84,0.9) 0%,rgba(53,53,53,0.9) 50%,rgba(41,41,41,0.9) 50%,rgba(15,15,15,0.9) 100%);
+}
+
+.top-container .top-bar ul{
+	list-style-type: none; 
+}
+.top-container .top-bar ul li {
+	float: left;
+	height:40px;
+	font-weight: 600!important;
+}
+.top-container .top-bar ul li a{
+	height: 40px;
+	line-height: 40px;
+	padding: 0 10px;
+	margin:0px;
+	color: white;
+	text-decoration: none;
+	top :0px;
+	display: block;
+}
+
+.top-container .top-bar ul li a:hover{
+	background-color: black;
+}
+
+.top-slider-container {
+	padding: 5px 10px;
+	width:600px;
+}
+.top-slider-container .slide-img img{
+	width:600px;
+	height: 300px;
+
+}
+
+.user-profile ul{
+	display: block;
+	border-radius: 4px;
+	border: 1px #ddd solid;
+	background-color: #fff; 
+	width:500px;
+	margin-left: 10px;
+	padding: 0;
+}
+
+.user-profile ul li {
+	height:50px;
+	padding:10px 20px;
+	list-style: none;
+	border-bottom: 1px solid #e7e7e7;
+} 
+.user-profile .element-grid {
+	#padding-right:70px;
+	width:80%;
+	float :left;
+}
+
+.user-profile .edit-button-ace{
+	padding-top:10px;
+}
+.user-profile .edit-button-ace .edit-button {
+	height: 30px;
+}
+
+.all-comic-list {
+	width: 500px;
+}
+.all-comic-list .initial-box {
+	border: solid 1px #a0a0a0;
+	#width: 500px;
+	padding: 5px;
+}
+
+.all-comic-list .series-title {
+	#width: 500px;
+	border-right: solid 1px #e0e0e0;
+	border-left: solid 1px #e0e0e0;
+	border-bottom: solid 1px #e0e0e0;
+}
+
+.all-comic-list .series-title .series-select-box{
+	float: left;
+	padding: 0 5px 10px 0;
+}
+
+.all-comic-list .series-title .series-select-box input{
+	width:25px;
+	height: 25px;
+}
+.all-comic-list .series-title a{
+	display: block;
+	height : 30px;
+	line-height: 30px;
+	background-color: #f0f0f0; 
+	color: black;
+	text-decoration: none;
+}
+
+.all-comic-list .series-title a:hover{
+	background-color: #f9f9f9;
 }

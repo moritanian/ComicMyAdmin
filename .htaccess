@@ -2,7 +2,7 @@ Options +FollowSymLinks
 
 RewriteEngine On
 
-ErrorDocument 404 /~user/404.html
+ErrorDocument 404 /404Error.html
 
 # RewriteBase /
 

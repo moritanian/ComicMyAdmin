@@ -1,5 +1,6 @@
 <?php
-class LoginController 
+require_once( 'Controller/ControllerBase.php' );
+class LoginController
 {
 	// 事前に生成したユーザごとのパスワードハッシュの配列
 	private $hashes = [
@@ -7,10 +8,20 @@ class LoginController
 	];
 
 	private $is_login = FALSE;
+	
 	public $username;
-	/*
-	public function __construct()
+
+	private $app_pos;
+
+	function __get($key){
+		if($key=='app_pos'){
+			return $app_pos;
+		}
+	}
+
+	public function __construct($url, $app_pos)
 	{
+		$this->app_pos= $app_pos;
 		 // セッション開始
     	@session_start();
     	// ログインしていれば / に遷移
@@ -18,7 +29,6 @@ class LoginController
         	$is_login = True;
         }
 	}
-	*/
 
 	public function isLogin(){
 		return $this->is_login;
@@ -29,7 +39,7 @@ class LoginController
 		$this->execLogin();
 		try {
 			$v = $this;
-			require_once("/../View/Login.php");
+			require_once("/../View/Login/Login.php");
 		} catch (Exception $e) {
 			echo("エラーが発生しました。");
 		}
@@ -40,13 +50,17 @@ class LoginController
 	public function RegistrationAction(){
 		$this->execRegistration();
 		$v = $this;
-		require_once("/../View/Registration.php");
+		if(isset($this->error)){
+			header("HTTP/1.0 403");
+		}
+		//echo($v->error);
+		require_once("/../View/Login/Registration.php");
 	}
 
 	public function LogoutAction(){
 		$this->execLogout();
 		$v = $this;
-		require_once("/../View/Logout.php");
+		require_once("/../View/Login/Logout.php");
 	}
 
 	/**
@@ -102,12 +116,16 @@ class LoginController
 		                ? $this->hashes[$this->username]
 		                : '$2y$10$abcdefghijklmnopqrstuv');
 		    */
+		    require_once('/Model/UserData.php');
+			$userDataModel = new UserData();
+			$user = $userDataModel->getByUserName($this->username);
+			var_dump($user);
 		    if (
 		        $this->validate_token(filter_input(INPUT_POST, 'token')) &&
 		        password_verify(
 		            $password,
-		            isset($this->hashes[$this->username])
-		                ? $this->hashes[$this->username]
+		            isset($user['hash'])
+		                ? $user['hash']
 		                : '$2y$10$abcdefghijklmnopqrstuv' // ユーザ名が存在しないときだけ極端に速くなるのを防ぐ
 		        )
 		    ) {
@@ -118,7 +136,7 @@ class LoginController
 		        // ユーザ名をセット
 		        $_SESSION['username'] = $this->username;
 		        // ログイン完了後に / に遷移
-		        header('Location: ./ComicAdmin/');
+		        header("Location: $this->app_pos/ComicAdmin/");
 		        exit;
 		    }
 		    // 認証が失敗したとき
@@ -129,12 +147,32 @@ class LoginController
 
 	// 新規登録処理
 	private function execRegistration(){
+		if(!filter_input(INPUT_POST, 'submit'))return;
 		$this->username = filter_input(INPUT_POST, 'username');
 		$password = filter_input(INPUT_POST, 'password');
-		if(mb_strlen($password) >= 6){
+		if($this->username && mb_strlen($password) >= 6){
 			$hash = $this->genarate_hash($password);
-			echo $hash;
-			header('Location:../Login/');
+			require_once('/Model/UserData.php');
+			$userDataModel = new UserData();
+			$user = $userDataModel->getByUserName($this->username);
+			if($user != null){
+				$this->error = "同一のユーザ名が登録済みです";
+				return ;
+			}
+			$user_data = array(
+				'user_name' => $this->username,
+				'hash'		=> $hash,
+				'mail_address' => '',
+				'authority'		=> 1,
+				'notification_id'=> 0,
+				'line_id' 	=> 0
+			);
+
+			$userDataModel->insert($user_data);
+			header('Location:../Login/index');
+			exit();
+		}else{
+			$this->error = "パスワードが短すぎます";
 		}
 	}
 

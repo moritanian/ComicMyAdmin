@@ -26,8 +26,9 @@ class ComicSeriesMaster extends ModelBase
 	}
 
 	public function insertData($seriesData){
-		$sql = sprintf('INSERT INTO %s (title, category1, category2, category3, category4, caegory5, category6, category7, category8, category9, category10, is_end, author, press, explain_text) values (:title, :category1, :category2, :category3, :category4 :category5, category6, :category7, :category8, :category9, :category10, :is_end, :author, :press, :explain_text)', $this->name);
+		$sql = sprintf('INSERT INTO %s (title, kana category1, category2, category3, category4, caegory5, category6, category7, category8, category9, category10, is_end, author, press, explain_text) values (:title, :kana,  :category1, :category2, :category3, :category4 :category5, category6, :category7, :category8, :category9, :category10, :is_end, :author, :press, :explain_text)', $this->tableName);
 		$stmt = $this->db->prepare($sql);
+		$stmt->bindValue(':kana', $seriesData['kana']);
         $stmt->bindValue(':title', $seriesData['title']);
         $stmt->bindValue(':is_end', $seriesData['is_end']);
         $stmt->bindValue(':author', $seriesData['author']);

@@ -14,7 +14,7 @@ class Dispatcher
 
     private $paramLevel=1; 
 
-
+    private $app_pos;
 
     public function setSystemRoot($path)
 
@@ -40,7 +40,9 @@ class Dispatcher
 
     }
 
-
+    public function setAppPosition($app_pos){
+        $this->app_pos = $app_pos;
+    }
 
     public function dispatch()
 
@@ -85,23 +87,24 @@ class Dispatcher
         // パラメータより取得したコントローラー名によりクラス振分け
 
         //$className = ucfirst(strtolower($controller)) . 'Controller';
-        $className = ucfirst($controller) . 'Controller';
- 
+       
         @session_start();
+$className = ucfirst($controller) . 'Controller';
         if($className != "LoginController"){  
             if (!isset($_SESSION['username'])) {
                 header('Location:' .$this->sysRoot .'/Login');
+                exit();
             }   
         }
 
+        //echo("sysroot = " . $this->sysRoot);
+
         // クラスファイル読込
-        $file_name =  $this->sysRoot . '/Controller/' . $className . '.php';
+        $file_name =   $this->sysRoot . '/Controller/' . $className . '.php';
         // ファイル名不正か
         if(!file_exists($file_name)){
            // header('Location:' . $this->sysRoot. 'ComicAdmin/ErrorPage.php')
-            header("HTTP/1.0 404 Not Found");
-            echo("error");
-            exit();
+            $this->notFoundError();
         }
         require_once $file_name;
 
@@ -115,7 +118,7 @@ class Dispatcher
 
         // クラスインスタンス生成
 
-        $controllerInstance = new $className($url);
+        $controllerInstance = new $className($url, $this->app_pos);
 
          // 2番目のパラメーターをコントローラーとして取得
 
@@ -132,14 +135,23 @@ class Dispatcher
         $actionMethod = $action . 'Action';
 
         if(!method_exists($controllerInstance, $actionMethod)){
-            header("HTTP/1.0 404 Not Found");
-            exit();
+            $this->notFoundError();
         }
 
         $controllerInstance->$actionMethod();
 
         
 
+    }
+
+    private function notFoundError(){
+        $redirectUrl = "/View/404Error.php";
+        header("HTTP/1.0 404 Not Found");
+        $v = (object) array('app_pos' => $this->app_pos);
+        //$v->sysRoot = $this->sysRoot;
+        require_once($redirectUrl);
+       // print(file_get_contents($redirectUrl));
+        exit();
     }
 
 }
