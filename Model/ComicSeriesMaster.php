@@ -26,16 +26,18 @@ class ComicSeriesMaster extends ModelBase
 	}
 
 	public function insertData($seriesData){
-		$sql = sprintf('INSERT INTO %s (title, kana category1, category2, category3, category4, caegory5, category6, category7, category8, category9, category10, is_end, author, press, explain_text) values (:title, :kana,  :category1, :category2, :category3, :category4 :category5, category6, :category7, :category8, :category9, :category10, :is_end, :author, :press, :explain_text)', $this->tableName);
+	//$this->dump($seriesData);
+		$sql = sprintf('INSERT INTO %s (title, kana, category1, category2, category3, category4, category5, category6, category7, category8, category9, category10, is_end, author, press, explain_text) values (:title, :kana,  :category1, :category2, :category3, :category4, :category5, :category6, :category7, :category8, :category9, :category10, :is_end, :author, :press, :explain_text)', $this->tableName);
 		$stmt = $this->db->prepare($sql);
 		$stmt->bindValue(':kana', $seriesData['kana']);
         $stmt->bindValue(':title', $seriesData['title']);
-        $stmt->bindValue(':is_end', $seriesData['is_end']);
+        $stmt->bindValue(':is_end', $seriesData['is_end'], PDO::PARAM_INT);
         $stmt->bindValue(':author', $seriesData['author']);
         $stmt->bindValue(':press', $seriesData['press']);
         $stmt->bindValue(':explain_text', $seriesData['explain_text']);
-        for($i = 0; $i < 10; $i++){
-        	$stmt->bindValue(":category$i", $seriesData["category$i"]);
+        for($i = 1; $i <= 10; $i++){
+        	$key = "category".$i;
+        	$stmt->bindValue(":".$key, $seriesData[$key], PDO::PARAM_INT);
         }
         $res = $stmt->execute();
 		return $res;

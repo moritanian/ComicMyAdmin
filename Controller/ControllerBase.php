@@ -10,6 +10,8 @@ require_once( 'Model/ModelBase.php ');
 
 require_once( 'Model/UserData.php');
 
+require_once( 'Model/ComicCategoryMaster.php');
+
 require_once( 'MyTemplate.php' );
 
 class ControllerBase {

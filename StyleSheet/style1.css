@@ -78,6 +78,10 @@
 	height: 30px;
 }
 
+.user-profile .user-data-box {
+	padding:8px;
+}
+
 .all-comic-list {
 	width: 500px;
 }
@@ -114,4 +118,8 @@
 
 .all-comic-list .series-title a:hover{
 	background-color: #f9f9f9;
+}
+
+.add-series-title-box {
+	padding : 10px 15px;
 }

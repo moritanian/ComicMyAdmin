@@ -83,5 +83,11 @@ class ModelBase
         
         return $res;
     }
+
+    public function dump($hash){
+        echo("<pre>");
+        var_dump($hash);
+        echo("</pre>");
+    }
 }
 ?>
