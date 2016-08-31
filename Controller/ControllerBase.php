@@ -2,9 +2,15 @@
 
 require_once( "Request.php" );
 
+require_once( "util.php");
+
 require_once( 'Model/ComicSeriesMaster.php' );
 
+require_once( 'Model/ComicVolumeMaster.php' );
+
 require_once( 'Model/UserComicSeriesData.php' );
+
+require_once( 'Model/UserComicVolumeData.php' );
 
 require_once( 'Model/ModelBase.php ');
 
@@ -49,6 +55,7 @@ class ControllerBase {
     public function checkAuthority($authority){
         if($authority > $this->userData['authority']){
             // 権限をみたしていない場合はその旨を表示して終了
+            $v = $this;
             require_once("/View/403Error.php");
             exit();
         }

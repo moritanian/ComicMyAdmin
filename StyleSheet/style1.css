@@ -84,7 +84,17 @@
 
 .all-comic-list {
 	width: 500px;
+	padding: 10px;
 }
+
+.all-comic-list .condition-select-space {
+	padding: 10px;
+}
+
+.all-comic-list .condition-select-space .is-contain {
+	padding: 0 0px 10;
+}
+
 .all-comic-list .initial-box {
 	border: solid 1px #a0a0a0;
 	#width: 500px;
@@ -116,9 +126,18 @@
 	text-decoration: none;
 }
 
+.all-comic-list .contain a{
+	background-color: #c0c0e0; 
+}
+
 .all-comic-list .series-title a:hover{
 	background-color: #f9f9f9;
 }
+
+.all-comic-list .contain a:hover{
+	background-color: #e9e9f9;
+}
+
 
 .add-series-title-box {
 	padding : 10px 15px;

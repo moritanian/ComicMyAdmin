@@ -31,6 +31,14 @@ class ComicVolumeMaster extends ModelBase
 		return $res;
 	}
 
+	public function countVolumeBySeriesId($series_id){
+		$sql = sprintf('COUNT %s WHERE series_id = :series_id', $this->tableName);
+		$stmt = $this->db->prepare($sql);
+        $stmt->bindValue(':series_id', $seriesData['series_id']);
+        $res = $stmt->execute();
+		return $res;
+	}
+
 }
 
 ?>

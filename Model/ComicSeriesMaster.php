@@ -7,18 +7,22 @@ class ComicSeriesMaster extends ModelBase
 
 	public function getBySeriesId($seriesId)
 	{
-		$sql = sprintf('SELECT * FROM %s where series_id = :seriesId', $this->tableName);
-        $stmt = $this->db->query($sql);
-        $stmt->bindValue(':seriesId', $seriesId);
-        $rows = $stmt->fetchAll();
-        return $rows;
+		$sql = sprintf('SELECT * FROM %s WHERE series_id = :seriesId', $this->tableName);
+                $stmt = $this->db->prepare($sql);
+                $stmt->bindValue(':seriesId', $seriesId);
+                $stmt->execute();
+                $rows = $stmt->fetchAll();
+                if(!isset($rows[0])){
+                        return null;
+                }
+                return $rows[0];
 	}
 
 	public function getAll(){
-		$sql = sprintf('SELECT * FROM %s', $this->tableName);
-        $stmt = $this->db->query($sql);
-        $rows = $stmt->fetchAll();
-        return $rows;
+		$sql = sprintf('SELECT * FROM %s order by kana', $this->tableName);
+                $stmt = $this->db->query($sql);
+                $rows = $stmt->fetchAll();
+                return $rows;
 	}
 
 	public function getByLikeName($likeName){
@@ -26,7 +30,6 @@ class ComicSeriesMaster extends ModelBase
 	}
 
 	public function insertData($seriesData){
-	//$this->dump($seriesData);
 		$sql = sprintf('INSERT INTO %s (title, kana, category1, category2, category3, category4, category5, category6, category7, category8, category9, category10, is_end, author, press, explain_text) values (:title, :kana,  :category1, :category2, :category3, :category4, :category5, :category6, :category7, :category8, :category9, :category10, :is_end, :author, :press, :explain_text)', $this->tableName);
 		$stmt = $this->db->prepare($sql);
 		$stmt->bindValue(':kana', $seriesData['kana']);

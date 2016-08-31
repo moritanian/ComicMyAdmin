@@ -44,9 +44,9 @@ function getAmazonItem($asin){
     $asin = 'B013PUTPHK';
 
     //アクセスキー
-    $access_key_id = 'AKIAIFICD23M3Q4CWFCQ';
+    $access_key_id = 'AKIAITLMZ67Q23CSZN2A';
     //シークレットキー
-    $secret_access_key = 'EphefZei0VZaOr3Hk2wc1WtPFGWZizrDTEABqo1N';
+    $secret_access_key = 'H7fm2KxLnk8lsavpEP4tr5bUwLRlQbxIVfMS8nMT';
     //アソシエイトタグ
     $associateTag = '';
 
@@ -89,12 +89,14 @@ function getAmazonItem($asin){
     //URL組み立て
     $url = $endpoint . '?' . $string_request . '&Signature=' . $signature;
 
+echo($url);
 
     // xml取得
     $xml = simplexml_load_string(getHttpContent($url));
 
     $item = $xml->Items->Item;
-    echo "画像URL：".$item->LargeImage->URL."\n";
+   var_dump($xml->Items->Item);
+   // echo "画像URL：".$item->LargeImage->URL."\n";
     return $item;
 }
 

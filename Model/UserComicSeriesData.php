@@ -16,15 +16,17 @@ class UserComicSeriesData extends ModelBase
 	}
 
 	public function insertData($data){
-		$sql = sprintf('INSERT INTO %s  (user_id, series_id, user_comment, assessment, is_list, is_notify) values (:user_id, :user_id, :series_Id, :user_comment, :assessment, :is_list, :is_notify)', $this->tableName);
+
+		$sql = sprintf('INSERT INTO %s  (user_id, series_id, user_comment, assessment, is_list, is_notify) values (:user_id, :series_id, :user_comment, :assessment, :is_list, :is_notify)', $this->tableName);
+               
 		$stmt = $this->db->prepare($sql);
-        $stmt->bindValue(':use_id', $data['user_id']);
-        $stmt->bindValue(':series_id', $data['series_id']);
-        $stmt->bindValue(':user_comment', $data['mail_address']);
-        $stmt->bindValue(':assessment', $data['authority']);
-        $stmt->bindValue(':is_list', $data['is_list']);
-        $stmt->bindValue(':is_notify', $data['is_notify']);
-        $res = $stmt->execute();
+                $stmt->bindValue(':user_id', $data['user_id']);
+                $stmt->bindValue(':series_id', $data['series_id']);
+                $stmt->bindValue(':user_comment', isset($data['user_comment']) ? $data['user_comment'] : "" );
+                $stmt->bindValue(':assessment', isset($data['assessment']) ? $data['assessment'] : 0);
+                $stmt->bindValue(':is_list', isset($data['is_list']) ? $data['is_list'] : 0);
+                $stmt->bindValue(':is_notify', isset($data['is_notify']) ? $data['is_notify'] : 0 );
+                $res = $stmt->execute();
 		return $res;
 	}
 

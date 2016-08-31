@@ -7,7 +7,7 @@ class UserData extends ModelBase
 
         public function getByUserId($userId)
         {
-                $sql = sprintf('SELECT * FROM %s where user_id = :userId ORDERBY kana', $this->tableName);
+                $sql = sprintf('SELECT * FROM %s where user_id = :userId ', $this->tableName);
                 $stmt = $this->db->prepare($sql);
                 $stmt->bindValue(':userId', $userId);
                 $stmt->execute();
