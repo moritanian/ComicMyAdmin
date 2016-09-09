@@ -89,10 +89,12 @@ class Dispatcher
         //$className = ucfirst(strtolower($controller)) . 'Controller';
        
         @session_start();
-$className = ucfirst($controller) . 'Controller';
+    // var_dump($_SESSION);    
+        $className = ucfirst($controller) . 'Controller';
         if($className != "LoginController"){  
             if (!isset($_SESSION['username'])) {
-                header('Location:' .$this->sysRoot .'/Login');
+                header('Location:http://localhost/ComicMyAdmin/Login');
+                echo("session no");
                 exit();
             }   
         }

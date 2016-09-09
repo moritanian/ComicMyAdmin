@@ -49,6 +49,7 @@ class ControllerBase {
         $this->view = new MyTemplate();
 
         $this->view->app_pos = $app_pos;
+        $this->view->authority = $this->userData['authority'];
     }
 
     // 権限を満たしているか

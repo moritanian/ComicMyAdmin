@@ -2,7 +2,17 @@ Options +FollowSymLinks
 
 RewriteEngine On
 
-ErrorDocument 404 /404Error.html
+ErrorDocument 404 /ComicMyAdmin/404Error.php
+
+ErrorDocument 403 /ComicMyAdmin/403Error.php
+
+php_value session.gc_maxlifetime 10
+
+php_value session.gc_probability 1
+
+php_value session.gc_divisor 1
+
+php_value session.save_path c:/tmp 
 
 # RewriteBase /
 

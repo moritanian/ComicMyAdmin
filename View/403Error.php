@@ -1,9 +1,10 @@
 <?php
 header("HTTP/1.1 403 Forbidden");
-include("/View/Footer.php");
+//include("/View/Footer.php");
 ?>
 <html>
 <head>
+
 <title>Error 403 Forbidden</title>
 </head>
 <body>
