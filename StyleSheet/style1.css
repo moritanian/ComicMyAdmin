@@ -1,15 +1,97 @@
 .warn{
-	text-color: red;
+	color: red;
+	padding :10px;
 }
 .a-text-bold{
 	font-weight: 700!important;
 }
+
+.check-button label {
+    font-size: 14px;
+    color: darkslategray;
+    margin: 0;
+    float: left;
+}
+
+.star-img {
+	width: 20px;
+	height: 20px;
+	background-size: 20px 20px; 
+	background-image: url(../Images/star.png);
+}
+
+.separator {
+	height: 1px;
+    border: none;
+    border-top: 1px #808080 solid;
+    margin: 0px 10px;
+}
+
+.top-container .top-title{
+	color : white;
+}
+.footer {
+	padding-bottom:60px;
+}
+
+.footer ul {
+	list-style-type: none; 
+}
+
+.footer li{
+	float: left;
+	height: 40px;
+	padding: 0px 10px;
+}
+
+
+.footer button {
+	display: block;
+	height : 40px;
+	line-height: 40px;
+	width: 100px;
+	background-color: #202020; 
+	color: white;
+	text-decoration: none;
+	border-radius: 4px;
+}
+
+body.back-img{
+	background-image: url("../Images/gos_back1.gif");
+	background-size: 600px 600px;
+	background-attachment: fixed;
+}
+
+.app-container{
+	margin: 3px auto 0px auto;
+	width:900px;
+	background-color: rgba(240,240,240,0.9);
+}
+
 .top-container {
-	#background-color: red;
+	opacity: 1.0;
+	background-color: #308050;
+}
+
+.top-container a{
+	height: 50px;
+	line-height: 40px;
+	#padding: 0 10px;
+	#margin:0px;
+	color: #040410;
+	text-decoration: none;
+	#top :0px;
+}
+
+.top-title {
+	#padding-left: 200px;
+	#padding-top: 10px;
+	padding: 0.1px 200px ;
+	height: 50px;
 }
 
 .top-container .top-bar {
-	width: 500px;
+	width: 550px;
 	#text-align: center;
 	height: 40px;
 	margin:0 20px 0;
@@ -47,6 +129,25 @@
 	width:600px;
 	height: 300px;
 
+}
+
+.top-page {
+	padding: 0px 15px 10px;
+}
+
+.top-page .month-news {
+	
+}
+.top-page .month-news .title{
+	padding-left: 30px; 
+}
+
+.top-page .release-news h3{
+	padding-left: 30px;
+}
+
+.user-profile {
+	padding : 5px 20px;
 }
 
 .user-profile ul{
@@ -110,7 +211,6 @@
 
 .all-comic-list .series-title .series-select-box{
 	float: left;
-	padding: 0 5px 10px 0;
 }
 
 .all-comic-list .series-title .series-select-box input{
@@ -141,4 +241,97 @@
 
 .add-series-title-box {
 	padding : 10px 15px;
+}
+
+.volume-list{
+	padding: 5px 15px;
+}
+
+.volume-list .title .name {
+	float:left;
+}
+
+.volume-list .end-title {
+	padding: 6px 10px;
+	margin : 20px 20px 0px;
+	background-image: url("../Images/icon_back_blue.png");
+	background-size: 60px 30px;
+	color : #ffffff;
+	font-weight: bold;
+	position: relative;
+	top: 25px;
+}
+
+.volume-list .series-detail {
+	clear: both;
+}
+
+.volume-list .series-detail .series-img{
+	float: left;
+}
+
+.volume-list .series-detail .series-img img{
+	height: 300px;
+}
+
+.volume-list .series-detail .series-profile{
+	padding: 10px;
+	left: 10px;
+	position: relative;
+}
+
+.volume-list .series-detail .prof-element{
+	padding: 10px;
+}
+
+.volume-list .series-detail .element-key{
+	float: left;
+	padding-right: 10px;
+}
+
+.volume-list .series-detail .element-key.tag{
+	height: 100px;
+}
+
+.volume-list .volume-list-box {
+	clear: both;
+	padding: 10px 0px;
+}
+
+.series-my-list {
+	padding: 5px 10px;
+	width: 500px;
+}
+.series-my-list .initial-box {
+	border: solid 1px #a0a0a0;
+	#width: 500px;
+	padding: 5px;
+}
+
+.series-my-list .series-title {
+	#width: 500px;
+	border-right: solid 1px #e0e0e0;
+	border-left: solid 1px #e0e0e0;
+	border-bottom: solid 1px #e0e0e0;
+}
+
+.series-my-list .series-title .series-select-box{
+	float: left;
+}
+
+.series-my-list .series-title .series-select-box input{
+	width:25px;
+	height: 25px;
+}
+.series-my-list .series-title a{
+	display: block;
+	height : 30px;
+	line-height: 30px;
+	background-color: #f0f0f0; 
+	color: black;
+	text-decoration: none;
+}
+
+.series-my-list .series-title a:hover{
+	background-color: #f9f9f9;
 }

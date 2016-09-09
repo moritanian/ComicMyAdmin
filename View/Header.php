@@ -9,19 +9,42 @@ header("HTTP/1.1 200");
 <title>
 ComicMyAdmin
 </title>
-<script src="<?= $v->app_pos?>/Plugins/jquery-3.1.0.min.js">
+<!-- <script src="<?= $v->app_pos?>/Plugins/jquery-3.1.0.min.js"> !-->
+<script src="<?= $v->app_pos?>/Plugins/jq.js">
+
 </script>
+
+<link href="<?= $v->app_pos?>/Plugins/jquery.bxslider.css" rel="stylesheet" />
+<script src="<?= $v->app_pos?>/Plugins/jquery.bxslider.min.js"></script>
+
+<link href="<?= $v->app_pos?>/Plugins/jqueryUI/jquery-ui.min.css" rel="stylesheet" />
+<script src="<?= $v->app_pos?>/Plugins/jqueryUI/jquery-ui.min.js"></script>
+
+<script src="<?=$v->app_pos?>/Plugins/cube.js"></script>
+
 </head>
 
+<!--
+<div style="position: fixed; top: 0px; left: 0px; z-index: 1; height: 613px; width: 1032px;" id="cube-area"></div>
+-->
+
+<body class="back-img">
+<div class="app-container">
 <div class="top-container">
-	<h2>ComicMyAdmin</h2>
+	<a href="<?= $v->app_pos?>/ComicAdmin/"><div class="top-title"><h1>ComicMyAdmin</h1></div></a>
+	
 	<div class="top-bar">
 		<ul>
 			<li class="top-icon"><a href="<?= $v->app_pos?>/ComicAdmin">Top</a></li>
 			<li class=""><a href="<?= $v->app_pos?>/User/">Mypage</a></li>
-			<li><a href="<?= $v->app_pos?>/Login/Logout">Logout</a></li>
 			<li><a href="<?= $v->app_pos?>/ComicAdmin/SeriesMyList">MyList</a></li>
 			<li><a href="<?= $v->app_pos?>/ComicAdmin/SeriesAllList">AddTitle</a></li>
+			<?php if($v->authority > 1): ?>
+			<li><a href="<?=$v->app_pos?>/ComicAdmin/AddComicSeries">AddSeries</a></li>
+			<?php endif; ?>
+		
+			
+			<li><a href="<?= $v->app_pos?>/Login/Logout">Logout</a></li>
 		</ul>
 	</div>
 </div>
