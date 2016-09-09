@@ -8,8 +8,9 @@ class ComicCategoryMaster extends ModelBase
 	public function getByCategoryId($categoryId)
 	{
 		$sql = sprintf('SELECT * FROM %s where category_id = :categoryId', $this->tableName);
-        $stmt = $this->db->query($sql);
+        $stmt = $this->db->prepare($sql);
         $stmt->bindValue(':categoryId', $categoryId);
+        $stmt->execute();
         $rows = $stmt->fetchAll();
         if(!isset($rows[0])){
         	return null;

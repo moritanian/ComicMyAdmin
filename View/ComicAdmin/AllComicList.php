@@ -5,6 +5,7 @@
 <div class="all-comic-list">
 <form method="get" action="<?=$v->app_pos?>/ComicAdmin/SeriesAllList">
 
+<!-- 検索フォーム !-->
 <div class="condition-select-space">
 	<div class="is-contain">
 		マイリストに含まれるか
@@ -15,7 +16,7 @@
 		</select>
 	</div>
 	<div class="search-text">
-		<input type="text" name="search_text">
+		<input type="text" name="search_text" <?php if($v->cond['search_text']):?> value = <?= $v->cond['search_text']?><?php endif; ?>>
 		<input type="submit" name='search' value='検索する'>
 	</div>
 </div>

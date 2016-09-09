@@ -21,7 +21,10 @@
 		<td><input type="text" name="kana"></td>
 	</tr>
 	
-
+	<tr>
+		<td>all volume number</td>
+		<td><input type="text" name="all_volume_number"></td>
+	</tr>
 	<tr>
 		<td>is_end</td>
 		<td><select name="is_end">

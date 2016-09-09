@@ -89,5 +89,17 @@ class ModelBase
         var_dump($hash);
         echo("</pre>");
     }
+
+    public function getLastInsertId(){
+        return $this->db->lastInsertId();
+    }
+
+    public function escape_str($str){
+        $str = preg_replace("/'/", "", $str);
+        $str = preg_replace("/\"/", "", $str);
+        $str = preg_replace("/;/", "", $str);
+        return $str;
+        
+    }
 }
 ?>

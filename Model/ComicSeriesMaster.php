@@ -26,7 +26,13 @@ class ComicSeriesMaster extends ModelBase
 	}
 
 	public function getByLikeName($likeName){
-
+                $likeName = $this->escape_str($likeName);
+                $sql = sprintf('SELECT * FROM %s  where title like :like_name  order by kana', $this->tableName);
+                $stmt = $this->db->prepare($sql);
+                $stmt->bindValue(':like_name', $likeName);
+                $stmt->execute();       
+                $rows = $stmt->fetchAll();
+                return $rows;
 	}
 
 	public function insertData($seriesData){

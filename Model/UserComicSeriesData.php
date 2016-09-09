@@ -15,6 +15,20 @@ class UserComicSeriesData extends ModelBase
                 return $rows;
 	}
 
+          public function getByUserIdAndSeriesId($userId, $seriesId)
+        {
+                $sql = sprintf('SELECT * FROM %s where user_id = :userId and series_id = :series_id', $this->tableName);
+                $stmt = $this->db->prepare($sql);
+                $stmt->bindValue(':userId', $userId);
+                $stmt->bindValue(':series_id', $seriesId);
+                $stmt->execute();
+                $rows = $stmt->fetchAll();
+                if(!isset($rows[0])){
+                        return null;
+                }
+                return $rows[0];
+        }
+
 	public function insertData($data){
 
 		$sql = sprintf('INSERT INTO %s  (user_id, series_id, user_comment, assessment, is_list, is_notify) values (:user_id, :series_id, :user_comment, :assessment, :is_list, :is_notify)', $this->tableName);

@@ -8,8 +8,9 @@ class ComicVolumeMaster extends ModelBase
 	public function getAllBySeriesId($seriesId)
 	{
 		$sql = sprintf('SELECT * FROM %s where series_id = :seriesId', $this->tableName);
-        $stmt = $this->db->query($sql);
+        $stmt = $this->db->prepare($sql);
         $stmt->bindValue(':seriesId', $seriesId);
+       	$stmt->execute();
         $rows = $stmt->fetchAll();
         return $rows;
 	}
@@ -22,10 +23,11 @@ class ComicVolumeMaster extends ModelBase
 	}
 
 	public function insertData($seriesData){
-		$sql = sprintf('INSERT INTO %s (book_id, series_id, release_date) values (:book_id, :series_id, :release_date)', $this->tableName);
+		$sql = sprintf('INSERT INTO %s (book_id, series_id, book_name, release_date) values (:book_id, :series_id, :book_name, :release_date)', $this->tableName);
 		$stmt = $this->db->prepare($sql);
 		$stmt->bindValue(':book_id', $seriesData['book_id']);
         $stmt->bindValue(':series_id', $seriesData['series_id']);
+        $stmt->bindValue(':book_name', $seriesData['book_name']);
         $stmt->bindValue(':release_date', $seriesData['release_date']);
         $res = $stmt->execute();
 		return $res;

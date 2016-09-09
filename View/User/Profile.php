@@ -1,7 +1,8 @@
 <?php //var_dump($v->userData)?>
-<h2>Profile</h2>
+
 
 <div class="user-profile">
+<h2>Profile</h2>
 	<ul> 
 		<li><span class="a-text-bold">username </span> 
 			<div class="user-data-box"><?=$v->userData['user_name']?> </div>

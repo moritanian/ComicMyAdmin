@@ -13,7 +13,21 @@ class UserComicVolumeData extends ModelBase
                 $stmt->execute();
                 $rows = $stmt->fetchAll();
                 return $rows;
-	}
+	   }
+
+          public function getByUserIdAndBookId($userId, $bookId)
+        {
+                $sql = sprintf('SELECT * FROM %s where user_id = :userId and book_id = :bookId', $this->tableName);
+                $stmt = $this->db->prepare($sql);
+                $stmt->bindValue(':userId', $userId);
+                $stmt->bindValue(':bookId', $bookId);
+                $stmt->execute();
+                $rows = $stmt->fetchAll();
+                if(!isset($rows[0])){
+                    return null;
+                }
+                return $rows[0];
+        }
 
          public function getAllByUserIdAndSeriesId($userId, $seriesId)
         {

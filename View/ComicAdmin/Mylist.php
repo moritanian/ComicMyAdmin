@@ -1,8 +1,27 @@
-<h3>MyList</h3>
 
-<div class="my-list">
-<?php foreach($v->mylist as $key => $series): ?>
+
+<div class="series-my-list">
+<h3>MyList</h3>
+<ul>
+<?php 
+$initial = "";
+foreach($v->mylist as $key => $comic_data): ?>
 	<div class="series">
-	<?php var_dump($series); ?>
+		<?php if($initial != $comic_data['initial']): 
+			$initial = $comic_data['initial']; ?>
+			<div class="initial-box">
+			<?=$initial?>
+			</div>
+		<?php endif; ?>
+
+		<div class='series-title'>
+			<a href='./VolumeMyList?series_id=<?=$comic_data['series_id']?>'> 
+			<?=$comic_data['title']?>
+			</a>
+		</div>
+	
+	<?php //var_dump($series); ?>
+
 	</div>
 <?php endforeach; ?>
+</ul>
