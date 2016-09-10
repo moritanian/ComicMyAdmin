@@ -1,6 +1,3 @@
-<?php //var_dump($v->userData)?>
-
-
 <div class="user-profile">
 <h2>Profile</h2>
 	<ul> 

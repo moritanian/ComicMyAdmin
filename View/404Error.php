@@ -1,6 +1,6 @@
 <?php
 header("HTTP/1.1 404 Not Found");
-include("/View/Footer.php");
+//include("/View/Footer.php");
 ?>
 <html>
 <head>

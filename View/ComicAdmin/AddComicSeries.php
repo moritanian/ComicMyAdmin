@@ -1,3 +1,7 @@
+
+
+<div class="add-series-title-box">
+
 <h3> AddComicSeries</h3> 
 
 <div class="result warn">
@@ -6,9 +10,8 @@
 <?php elseif($v->ret['error']):?>
 	<?= $v->ret['error']?>
 <?php endif; ?>
-<div>
+</div>
 
-<div class="add-series-title-box">
 <form method="post" action="<?=$v->app_pos?>/ComicAdmin/AddComicSeries">
 <input type="submit" value="追加する" name="add_series_title">
 <table>

@@ -30,7 +30,7 @@ class ControllerBase {
 
     protected $app_pos;
 
-	public function __construct($url, $app_pos)
+	public function __construct($url="", $app_pos="")
     {
         $this->app_pos = $app_pos;
         //user data
@@ -60,6 +60,18 @@ class ControllerBase {
             require_once("/View/403Error.php");
             exit();
         }
+    }
+    public static function checkSession(){
+        @session_start();
+
+        return isset($_SESSION['username']);
+    } 
+
+    public function user_id(){
+        return $this->userData['user_id'];
+    }  
+    public function request(){
+        return $this->request;
     }
 }
 ?>

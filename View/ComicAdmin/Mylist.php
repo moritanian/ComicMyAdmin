@@ -19,9 +19,6 @@ foreach($v->mylist as $key => $comic_data): ?>
 			<?=$comic_data['title']?>
 			</a>
 		</div>
-	
-	<?php //var_dump($series); ?>
-
 	</div>
 <?php endforeach; ?>
 </ul>

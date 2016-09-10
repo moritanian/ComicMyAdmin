@@ -86,20 +86,7 @@ class ComicAdminController  extends ControllerBase{
 	{
 		$series_id = (int)$this->request->series_id;
 		$user_id = $this->userData['user_id'];
-/*
-		// シリーズマスタ
-		$comic_series_model = new ComicSeriesMaster();
-		$series_data = $comic_series_model->getBySeriesId($series_id);
-		// ユーザシリーズデータ
-		$user_comic_series_model = new UserComicSeriesData();
-		$series_user_data = $user_comic_series_model->getByUserIdAndSeriesId($user_id, $series_id);
-		// ユーザvolume データ
-		$user_comic_volume_model = new UserComicVolumeData();
-		$volume_list = $user_comic_volume_model->getAllByUserIdAndSeriesId($user_id, $series_id);
-		// volume model
-		$comic_volume_master = new ComicVolumeMaster();
-		$volume_list = $comic_volume_master->getAllBySeriesId($series_id);
-*/
+
 		$ret = $this->getUserVolumeData($series_id);
 		$this->view->series_data = $ret->series_data;
 		$this->view->volume_list = $ret->volume_list;
@@ -126,6 +113,7 @@ class ComicAdminController  extends ControllerBase{
 		$this->view->show("ComicAdmin/AddComicSeries");
 	}
 
+	// マスタデータ編集画面
 	public function EditComicVolumeAction(){
 		$this->checkAuthority(2);
 		$seriesId = $this->request->seriesId;
@@ -281,6 +269,7 @@ class ComicAdminController  extends ControllerBase{
 		$volumeMasterData = $this->getVolumeMaster($seriesId);
 
 		if($volumeMasterData){
+			$volumeMasterData->series_data['series_img'] = "http://ecx.images-amazon.com/images/I/51nJbKvEHfL._SX250_.jpg";
 			$user_volume_list = $user_comic_volume_model->getAllByUserIdAndSeriesId($this->userData['user_id'] ,$seriesId);
 			foreach ($volumeMasterData->volume_list as $master_key => $volume) {
 				// user data 初期値
@@ -292,7 +281,7 @@ class ComicAdminController  extends ControllerBase{
 					);
 				foreach ($user_volume_list as $list_key => $user_volume) {
 					if($volume['book_id'] == $user_volume['book_id']){
-						$volume += $user_volume; // 配列を結合
+						$volumeMasterData->volume_list[$master_key] = array_merge($volume, $user_volume); // 配列を結合
 						break;
 					}
 				}
@@ -325,7 +314,6 @@ class ComicAdminController  extends ControllerBase{
 		if($length > 10){
 			return null;
 		}
-	echo($to);
 		$bookId_right = str_pad($seriesId, 10 - $length, 0, STR_PAD_RIGHT);
 		$bookId = str_pad($bookId_right, 5, 0, STR_PAD_RIGHT);
 		$bookIds = array();
@@ -333,7 +321,6 @@ class ComicAdminController  extends ControllerBase{
 			$id = $bookId +$i;
 			$bookIds[$i] = $id;
 		}
-		var_dump($bookIds);
 		return $bookIds;
 	}
 

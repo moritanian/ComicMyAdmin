@@ -20,17 +20,13 @@ ComicMyAdmin
 <link href="<?= $v->app_pos?>/Plugins/jqueryUI/jquery-ui.min.css" rel="stylesheet" />
 <script src="<?= $v->app_pos?>/Plugins/jqueryUI/jquery-ui.min.js"></script>
 
-<script src="<?=$v->app_pos?>/Plugins/cube.js"></script>
+<script src="<?=$v->app_pos?>/Plugins/fly-anim.js"></script>
 
 </head>
 
-<!--
-<div style="position: fixed; top: 0px; left: 0px; z-index: 1; height: 613px; width: 1032px;" id="cube-area"></div>
--->
-
 <body class="back-img">
 <div class="app-container">
-<div class="top-container">
+<div class="top-container" id="fly-anim-area">
 	<a href="<?= $v->app_pos?>/ComicAdmin/"><div class="top-title"><h1>ComicMyAdmin</h1></div></a>
 	
 	<div class="top-bar">

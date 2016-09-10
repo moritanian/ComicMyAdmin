@@ -119,7 +119,7 @@ class LoginController
 		    require_once('/Model/UserData.php');
 			$userDataModel = new UserData();
 			$user = $userDataModel->getByUserName($this->username);
-			var_dump($user);
+			
 		    if (
 		        $this->validate_token(filter_input(INPUT_POST, 'token')) &&
 		        password_verify(

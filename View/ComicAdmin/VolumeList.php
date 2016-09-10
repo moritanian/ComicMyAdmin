@@ -1,5 +1,5 @@
 <h3> ComicVolumeList </h3>
-<?php  if($v->authority > 1): ?><a href="<?=$v->app_pos?>/ComicAdmin/EditComicVolume">EditVolumeData</a><?php endif; ?>
+<?php  if($v->authority > 1): ?><a href="<?=$v->app_pos?>/ComicAdmin/EditComicVolume?seriesId=<?=$v->series_data['series_id']?>">EditVolumeData</a><?php endif; ?>
 
 <div class="volume-list">
 	<div class="series-data-box">

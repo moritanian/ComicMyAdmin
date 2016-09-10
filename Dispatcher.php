@@ -1,6 +1,6 @@
 <?php
 
-require_once 'Controller/LoginController.php';
+//require_once 'Controller/LoginController.php';
 
 class Dispatcher
 
@@ -55,7 +55,6 @@ class Dispatcher
 
         $params_tmp = explode('?', $_SERVER['REQUEST_URI']);
 
-//var_dump($params_tmp);
         // パラメーター取得（末尾,先頭の / は削除）
 
         $params_tmp[0] = preg_replace('/\/?$/', '', $params_tmp[0]);
@@ -88,8 +87,7 @@ class Dispatcher
 
         //$className = ucfirst(strtolower($controller)) . 'Controller';
        
-        @session_start();
-    // var_dump($_SESSION);    
+        @session_start();   
         $className = ucfirst($controller) . 'Controller';
         if($className != "LoginController"){  
             if (!isset($_SESSION['username'])) {
