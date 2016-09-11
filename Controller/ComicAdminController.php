@@ -88,6 +88,7 @@ class ComicAdminController  extends ControllerBase{
 		$user_id = $this->userData['user_id'];
 
 		$ret = $this->getUserVolumeData($series_id);
+		$this->setCategoryData($ret->series_data);
 		$this->view->series_data = $ret->series_data;
 		$this->view->volume_list = $ret->volume_list;
 		$this->view->show("ComicAdmin/VolumeMyList");
@@ -117,11 +118,14 @@ class ComicAdminController  extends ControllerBase{
 	public function EditComicVolumeAction(){
 		$this->checkAuthority(2);
 		$seriesId = $this->request->seriesId;
+		$ret = $this->execEditComicMaster();
+		$this->view->ret = $ret;
 		if(!$seriesId){
 			$this->view->is_incorrect_id = 1;
 		}else{
 			$ret = $this->getVolumeMaster($seriesId);
 			if($ret){
+				$this->getCategory($ret->series_data);
 				$this->view->series_data = $ret->series_data;
 				$this->view->volume_list = $ret->volume_list;
 			}else{
@@ -156,6 +160,12 @@ class ComicAdminController  extends ControllerBase{
 		$this->view->show("ComicAdmin/VolumeList");
 	}
 
+	// testページ
+	public function testAction(){
+		echo("test");
+		$this->checkAuthority(2);
+		$this->view->show("ComicAdmin/test");
+	}
 
 	// タイトルをマスタに追加
 	private function execAddComicSeries(){
@@ -223,6 +233,72 @@ class ComicAdminController  extends ControllerBase{
 		
 	}
 
+	private function execEditComicMaster(){
+		$ret = (object)array('edit' => "", 'result' => false);
+
+		if($this->request->series_submit || $this->request->all_submit){ // シリーズデータ
+			$ret->edit = "series_data";
+			$series_data = $this->request->series_data;
+			$updateData = array(
+				'series_id' => $this->request->seriesId,
+				'title'		=> $series_data['title'],
+				'kana' 		=> $series_data['kana'],
+				'is_end'	=> $series_data['is_end'],
+				'author'	=> $series_data['author'],
+				'press'		=> $series_data['press'],
+				'explain_text' => $series_data['explain_text']
+				);
+			$updateData += $this->convertUserDataInCategoryData($series_data['category']);
+			$comic_series_model = new ComicSeriesMaster();
+			$ret->result = $comic_series_model->updateData($updateData);
+		}
+		if($this->request->volume_submit_list || $this->request->all_submit){ // volume
+			
+			$edit_volume_list = array();
+			if($this->request->volume_submit_list){
+				$ret->edit = "volume_data";
+				$volume_submit_list = $this->request->volume_submit_list;
+				$edit_book_ids = array_keys($volume_submit_list);
+				$volume_list = $this->request->volume_list;
+				foreach ($edit_book_ids as $key => $book_id) {
+					$edit_volume_list["$book_id"] = $volume_list[$book_id]; 
+				}
+			}else{
+				$ret->edit= 'all';
+				$edit_volume_list = $this->request->volume_list;
+			}
+			
+			if(count($edit_volume_list)){
+				$ret->result = true;
+			}
+			
+			$comic_volume_master = new ComicVolumeMaster();
+			foreach ($edit_volume_list as $book_id => $volume_data) {
+				$volume_data['book_id'] = $book_id;
+				if(!$comic_volume_master->updateDataByBookId($volume_data)){
+					$ret->result = false; // 更新失敗した場合、falseに
+				}
+			}
+			
+		}
+		
+		return $ret;
+	}
+
+	// カテゴリーチェックリストをモデルデータ形式に変更
+	private function convertUserDataInCategoryData($category_list){
+		$category_data = array();
+		$i = 1;
+		foreach ($category_list as $key => $category_id) {
+			$category_data["category$i"] = $category_id;
+			$i ++;
+		}
+		for($j = $i; $j <= 10; $j++){
+			$category_data["category$j"] = 0;
+		}
+		return $category_data;
+	}
+
 	private function getSeriesMaster($seriesId){
 
 	}
@@ -255,7 +331,8 @@ class ComicAdminController  extends ControllerBase{
 		if($series_data == null){
 			$ret = null;
 		}else{
-			$this->setCategoryData($series_data);
+			//$this->setCategoryData($series_data);
+			//$this->getCategory($series_data);
 			$volume_list = $comic_volume_master->getAllBySeriesId($seriesId);
 			$ret->series_data = $series_data;
 			$ret->volume_list = $volume_list;
@@ -301,6 +378,23 @@ class ComicAdminController  extends ControllerBase{
 				$series_data["category${i}_name"] = (isset($category['category_name'])) ? $category['category_name'] : "";
 			}
 		}
+	}
+
+	// ユーザデータにカテゴリーをカテゴリーマスタ順で取得し追加
+	private function getCategory(&$series_data){
+		$category_master = new ComicCategoryMaster();
+		$all_category_list = $category_master->getAll();
+		$user_category_list = array();
+		foreach ($all_category_list as $master_key => $category) {
+			$category["selected"] = 0;
+			for ($i=1; $i<=10; $i++) {
+				$category_id = $series_data["category$i"];
+				if($category_id != $category["category_id"])continue;
+				$category["selected"] = 1;
+			}
+			array_push($user_category_list, $category);
+		}
+		$series_data['category'] = $user_category_list;
 	}
 
 	// seriesId から新しくbookIdを生成する

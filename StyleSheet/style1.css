@@ -383,6 +383,31 @@ body.back-img{
 	padding: 5px 20px;
 }
 
+.edit-comic-volume .series-box h3{
+	display: inline-block;
+}
+
+.edit-comic-volume .series-box .series-data {
+	#padding:5px 5px;
+}
+
+.edit-comic-volume .series-box .series-data .element-key{
+	padding-left:10px;
+}
+
+.edit-comic-volume .series-box .series-data .element-value{
+	padding-left: 0px;
+}
+
+.edit-comic-volume .series-box .series-data td.category-left{
+	padding-left:20px;
+}
+
 .edit-comic-volume .volume-head h3{
 	display: inline-block;
 }
+
+.edit-comic-volume table.volume-data tr td input{
+	#top : -4px;
+	position: relative;
+}		

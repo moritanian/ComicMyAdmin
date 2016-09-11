@@ -41,6 +41,16 @@ class ComicVolumeMaster extends ModelBase
 		return $res;
 	}
 
+	public function updateDataByBookId($seriesData){
+		$sql = sprintf('UPDATE %s SET book_name = :book_name, release_date = :release_date  where book_id = :book_id', $this->tableName);
+		$stmt = $this->db->prepare($sql);
+		$stmt->bindValue(':book_id', $seriesData['book_id']);
+        $stmt->bindValue(':book_name', $seriesData['book_name']);
+        $stmt->bindValue(':release_date', $seriesData['release_date']);
+        $res = $stmt->execute();
+		return $res;
+	}
+
 }
 
 ?>

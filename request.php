@@ -10,6 +10,7 @@ class Request
 			return $ret;
 		}
 		$post = filter_input(INPUT_POST, $name);
+		if($post==null)$post = filter_input(INPUT_POST, $name, FILTER_DEFAULT ,FILTER_REQUIRE_ARRAY);
 		$get = filter_input(INPUT_GET, $name);
 		return $post ? $post : $get;
 	}
