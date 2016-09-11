@@ -4,15 +4,17 @@
 		$(this).datepicker()
     	.datepicker("option", "dateFormat", 'yy-mm-dd' )
     	.datepicker("option", "showOn", 'both')
-    	.datepicker("option", "buttonImage", '../Images/calendar_icon.png')
-  		.datepicker("setDate", "2014-02-15");
+    	.datepicker("option", "buttonImage", '../Images/calendar_icon.png');
+    	if($(this).attr("date") != "0000-00-00"){
+  			$(this).datepicker("setDate", $(this).attr("date"));
+  		}
   	});
   	
   });
 </script>
 
 <?php var_dump($_POST);?>
-
+<?php var_dump($v->volume_list); ?>
 <div class="edit-comic-volume"> 
 
 <h3>EditComicVolume</h3>
@@ -82,7 +84,7 @@
 			<td><input type="text" name="volume_list[<?=$volume['book_id']?>][book_name]" 
 				value="<?=$volume['book_name']?>"></td>
 			<td><input type="text" name="volume_list[<?=$volume['book_id']?>][release_date]" 
-				value="<?=$volume['release_date']?>" class="datepicker"></td>
+				value="<?=$volume['release_date']?>" class="datepicker" date="<?=$volume['release_date']?>"></td>
 			<td><input type="submit" name="volume_submit_list[<?=$volume['book_id']?>]" 
 				value="send"></td>
 		</tr>	
