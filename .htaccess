@@ -14,6 +14,10 @@ php_value session.gc_divisor 1
 
 php_value session.save_path c:/tmp 
 
+php_value error_reporting -1
+
+php_flag display_errors On
+
 # RewriteBase /
 
 # RewriteCond %{REQUEST_FILENAME} !-d

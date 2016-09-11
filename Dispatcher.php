@@ -85,8 +85,8 @@ class Dispatcher
 
         // パラメータより取得したコントローラー名によりクラス振分け
 
-        //$className = ucfirst(strtolower($controller)) . 'Controller';
-       
+        //$className = ucfirst(strtolower($controller)) . 'Controller'; 
+        session_cache_limiter('private_no_expire');
         @session_start();   
         $className = ucfirst($controller) . 'Controller';
         if($className != "LoginController"){  

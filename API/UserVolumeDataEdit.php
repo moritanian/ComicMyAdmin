@@ -1,8 +1,5 @@
 <?php
- 
- //error_log("api user_volume_data\edit");
- //$path = "C:\\Users\\moritania\\Desktop\\wavserver\\Apache24\\htdocs\\ComicMyAdmin";
- //set_include_path(get_include_path() . PATH_SEPARATOR . $path); 
+header('Content-type: application/json');
 	require_once('../setting.php');
 	setting();
 
@@ -31,5 +28,8 @@
 		'user_comment' => $user_comment
 		);
 	$user_volume_model->updateInsertData($data);
+	
+	$ret = 1;
+	echo json_encode($ret);
 
 ?>

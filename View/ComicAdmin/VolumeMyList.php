@@ -11,7 +11,6 @@ $(function(){
 				var is_read = $(this).find(".is-read > div").attr("state");
 				var assessment = $(this).find(".assessment").attr("star-num");
 				var user_comment = $(this).find(".user-comment > input").val(); 
-				console.log(book_id + " : " + is_possess + ":" + is_read + ":" + assessment + ":" + user_comment);
 
 				// ページ内の情報更新
 				var volume_data_ele = $(".volume-list-box").find('li[book_id="' + book_id +'"]');
@@ -39,13 +38,13 @@ $(function(){
 					data : JSON.stringify(data)
 				})
 				.done(function (data, textStatus, jqXHR) {
-					alert("done");
+					
 				})
 				.fail(function(jqXHR, testStatus, errorThrown){
-					alert("failed");
+					alert("failed " + errorThrown);
 				})
 				.always(function(data, textStatus, errorThrown){
-					alert("always");
+					
 				});
 
 				$(this).dialog('close');

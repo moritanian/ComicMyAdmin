@@ -38,7 +38,6 @@ class UserComicVolumeData extends ModelBase
         }
 
 	public function insertData($data){
-error_log(print_r($data, true));
 		$sql = sprintf('INSERT INTO %s  (user_id, book_id, series_id, is_possess, is_read, user_comment, assessment) values (:user_id, :book_id, :series_id, :is_possess, :is_read, :user_comment, :assessment)', $this->tableName);
 		$stmt = $this->db->prepare($sql);
         $stmt->bindValue(':user_id', $data['user_id']);
@@ -53,7 +52,6 @@ error_log(print_r($data, true));
 	}
 
     public function updateData($data){
-error_log("update" . print_r($data, true));
         if(!isset($data['book_id']) || !isset($data['user_id']))return ;
         $sql = sprintf('UPDATE %s SET is_possess = :is_possess, is_read = :is_read, user_comment = :user_comment, assessment = :assessment where user_id = :user_id and book_id = :book_id', $this->tableName);
         $stmt = $this->db->prepare($sql);
