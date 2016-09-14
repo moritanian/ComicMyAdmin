@@ -73,6 +73,15 @@ class UserComicVolumeData extends ModelBase
         }
     }
 
+    public function getRecentlyUpdateIds($userId, $limit = 5){
+        $sql = sprintf('select series_id, update_time from %s WHERE user_id = :user_id ORDER BY update_time DESC LIMIT :limit', $this->tableName);
+        $stmt = $this->db->prepare($sql);
+        $stmt->bindValue(':user_id', $userId, PDO::PARAM_INT);
+        $stmt->bindValue(':limit', $limit, PDO::PARAM_INT);
+        $stmt->execute();
+        $rows = $stmt->fetchAll();
+        return $rows;
+    }
 }
 
 ?>

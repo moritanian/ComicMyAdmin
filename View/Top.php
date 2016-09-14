@@ -24,10 +24,19 @@
 			<li>ゼノンの逆襲1</li>
 		</ul>
 	</div>
-	
+
+	<div class="recently-activity">
+		<div class="title"><h3> | 最近の注目</h3></div>
+		<ul>
+			<?php foreach ($v->recentlyActivities as $key => $series_data): ?>
+			<li><a href="<?=$v->app_pos?>/ComicAdmin/VolumeMyList?series_id=<?=$series_data['series_id']?>"><?= $series_data['title']?></a></li>
+			<?php endforeach;?>
+		</ul>
+	</div>
+
 	<div class="release-news">
 		<h3> | アプリ新規機能リリース情報</h3>
-		
+
 	</div>
 </div>
 

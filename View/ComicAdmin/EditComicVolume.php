@@ -1,20 +1,49 @@
 <script>
   $(function() {
   	$(".datepicker").each(function(){
-		$(this).datepicker()
+		setDatePicker($(this));
+		/*$(this).datepicker()
     	.datepicker("option", "dateFormat", 'yy-mm-dd' )
     	.datepicker("option", "showOn", 'both')
     	.datepicker("option", "buttonImage", '../Images/calendar_icon.png');
     	if($(this).attr("date") != "0000-00-00"){
   			$(this).datepicker("setDate", $(this).attr("date"));
+  		}*/
+  	});
+
+  	function setDatePicker(element){
+  		element.datepicker()
+    	.datepicker("option", "dateFormat", 'yy-mm-dd' )
+    	.datepicker("option", "showOn", 'both')
+    	.datepicker("option", "buttonImage", '../Images/calendar_icon.png');
+    	if(element.attr("date") != "0000-00-00"){
+  			element.datepicker("setDate", element.attr("date"));
   		}
+  	}
+
+  	$("#add-volume-data").click(function(){
+  		$("table.volume-data").append(
+  			"<tr>"
+			+"<td>new</td>"
+			+"<td><input type='text' name=''" 
+				+"value=''></td>"
+			+"<td><input type='text' name='' value='' class='datepicker' date=''></td>"
+			+"<td><input type='submit' name='' value='send'></td>"
+			+"<td class='delete-element'><input type='button' class='delete-element-button' value='delete'></td></tr>"	
+			);
+  		var date_element = $("table",".volume-data tr").last().find(".datepicker");
+  		setDatePicker(date_element);
+  	});
+
+  	//$(".delete-element-button").on('click', function(){
+  	$(document).on("click", ".delete-element", function(){
+  	  		console.log("bu");
+  		$(this).parent().remove();
   	});
   	
   });
 </script>
 
-<?php var_dump($_POST);?>
-<?php var_dump($v->volume_list); ?>
 <div class="edit-comic-volume"> 
 
 <h3>EditComicVolume</h3>
@@ -91,6 +120,7 @@
 	<?php endforeach; ?>
 	</table>
 
+	<input type="button" id="add-volume-data" name="" value="add one record">
 	<input type="submit" name="all_submit" value="all send">
 	</form>
 

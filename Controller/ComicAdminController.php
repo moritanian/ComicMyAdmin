@@ -99,6 +99,9 @@ class ComicAdminController  extends ControllerBase{
 	public function indexAction(){
 		$topSlideImgs = $this->getTopSlideImages();
 		$this->view->topSlideImgs = $topSlideImgs;
+		$recentlyActivityData = $this->getRecentlyActivitySeriesData();
+		$this->view->recentlyActivities = $recentlyActivityData;
+		//var_dump($recentlyActivityData);
 		$this->view->show("Top");
 	}
 
@@ -125,7 +128,7 @@ class ComicAdminController  extends ControllerBase{
 		}else{
 			$ret = $this->getVolumeMaster($seriesId);
 			if($ret){
-				$this->getCategory($ret->series_data);
+				$this->appendCategory($ret->series_data);
 				$this->view->series_data = $ret->series_data;
 				$this->view->volume_list = $ret->volume_list;
 			}else{
@@ -299,8 +302,39 @@ class ComicAdminController  extends ControllerBase{
 		return $category_data;
 	}
 
-	private function getSeriesMaster($seriesId){
-
+	public function getRecentlyActivitySeriesData(){
+		$userId = $this->userData['user_id'];
+		$user_comic_series_model = new UserComicSeriesData();
+		$user_comic_volume_model = new UserComicVolumeData();
+		$user_recenly_series = $user_comic_series_model->getRecentlyUpdateIds($userId);
+		$user_recenly_volume = $user_comic_volume_model->getRecentlyUpdateIds($userId);
+		$user_data = array_merge($user_recenly_series,$user_recenly_volume);
+		/* 　series と volume をガチャンコ
+			それぞれのuser_data は update_date で　ソート済みの前提
+		*/
+		function sortByUpdate($user_data1, $user_data2){
+			$date1 = $user_data1['update_time'];
+			$date2 = $user_data2['update_time'];
+			if($date1 == $date2){
+				return 0;
+			}
+			return $date1 < $date2 ? -1 : 1;
+		}
+		usort($user_data, "sortByUpdate");
+		$seriesIds = array();
+		foreach ($user_data as $key => $data) {
+			$seriesId = $data['series_id'];
+			if(in_array($seriesId, $seriesIds)){ // すでにuser_data に 同じseries_id が存在する場合、削除
+				unset($user_data[$key]);
+			}else{ 								// マスタデータ付加 
+				if(!$this->appendSeriesMaster($user_data[$key])){
+					unset($user_data[$key]);
+				}
+				array_push($seriesIds, $seriesId);
+				
+			}
+		}
+		return $user_data;
 	}
 
 	// ユーザ登録されているすべてのシリーズデータ
@@ -332,7 +366,7 @@ class ComicAdminController  extends ControllerBase{
 			$ret = null;
 		}else{
 			//$this->setCategoryData($series_data);
-			//$this->getCategory($series_data);
+			//$this->appendCategory($series_data);
 			$volume_list = $comic_volume_master->getAllBySeriesId($seriesId);
 			$ret->series_data = $series_data;
 			$ret->volume_list = $volume_list;
@@ -367,6 +401,26 @@ class ComicAdminController  extends ControllerBase{
 		return $volumeMasterData;
 	}
 
+	// マスタデータ付加
+	private function appendSeriesMaster(&$usrSeriesData){
+		$comic_series_master = new ComicSeriesMaster();
+		$series_master_data = $comic_series_master->getBySeriesId($usrSeriesData['series_id']);
+		$ret = false;
+		if($series_master_data){
+			$usrSeriesData["title"] = $series_master_data['title'];
+			$usrSeriesData["kana"] = $series_master_data['kana'];
+			$usrSeriesData['is_end'] = $series_master_data['is_end'];
+			$usrSeriesData['author'] = $series_master_data['author'];
+			$usrSeriesData['press'] = $series_master_data['press'];
+			$usrSeriesData['explain_text'] = $series_master_data['explain_text'];
+			for($i=1; $i <= 10; $i++){
+				$usrSeriesData["category$i"] = $series_master_data["category$i"];
+			}
+			$ret = true;
+		}
+		return $ret;
+	}
+
 	// series data にカテゴリーを追加
 	private function setCategoryData(&$series_data){
 		// categiry master
@@ -381,7 +435,7 @@ class ComicAdminController  extends ControllerBase{
 	}
 
 	// ユーザデータにカテゴリーをカテゴリーマスタ順で取得し追加
-	private function getCategory(&$series_data){
+	private function appendCategory(&$series_data){
 		$category_master = new ComicCategoryMaster();
 		$all_category_list = $category_master->getAll();
 		$user_category_list = array();

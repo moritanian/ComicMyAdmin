@@ -167,6 +167,10 @@ body.back-img{
 	padding-left: 30px;
 }
 
+.top-page .recently-activity h3 {
+	padding-left: 30px;
+}
+
 .user-profile {
 	padding : 5px 20px;
 }
@@ -334,7 +338,7 @@ body.back-img{
 }
 
 .volume-list .volume-list-box ul li:hover {
-	background-color: #f9f9f9;
+	background-color: #f4d0a0;
 }
 
 .series-my-list {
