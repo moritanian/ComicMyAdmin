@@ -4,25 +4,21 @@ function setting(){
 	require_once 'Dispatcher.php';
 
 	require_once 'util.php';
+
+	require_once 'Config/database.php';
 	
 	$dispatcher = new Dispatcher();
 
 	IncludePathSetting($dispatcher);
 
-	require_once( 'Model/ModelBase.php ');
+	require_once 'Model/ModelBase.php ';
 
 	
 
-	// DB接続情報設定
-	$connInfo = array(
-	    'host'     => 'localhost',
-	    'dbname'   => 'data1',
-	    'dbuser'   => 'root',
-	    'password' => 'sincostan'
-	);
-	ModelBase::setConnectionInfo($connInfo );
+	// DB接続
+	$database_config = new DATABASE_CONFIG();
 
-	
+	ModelBase::setConnectionInfo($database_config->connInfo );
 
 	//apacheのドキュメントルートから何階層目のディレクトリにMVCアプリを配備するか。
 

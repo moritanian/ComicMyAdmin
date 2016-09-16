@@ -25,11 +25,8 @@ function IncludePathSetting($dispatcher){
 
         //開発環境
 
-        $path =  '/';
         $path = "C:\\Users\\moritania\\Desktop\\wavserver\\Apache24\\htdocs\\ComicMyAdmin";
-       // $path .= PATH_SEPARATOR . 'D:/devlop/php/別にインクルードするディレクトリあれば指定/';
-
-        //$dispatcher->setSystemRoot('C:/Users/moritania/Destop/wavserver/Apache24/ComicMyAdmin');
+      
         $dispatcher->setSystemRoot($_SERVER['DOCUMENT_ROOT'].'/ComicMyAdmin');
 
         $dispatcher->setAppPosition("/ComicMyAdmin");
