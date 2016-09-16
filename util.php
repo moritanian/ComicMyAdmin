@@ -16,9 +16,9 @@ function IncludePathSetting($dispatcher){
 
         $path = '/home/hoge/smarty/libs/';
 
-        $path .= PATH_SEPARATOR . '/home/hoge/別にインクルードするディレクトリあれば指定/';
+        $path .= PATH_SEPARATOR . $_SERVER['DOCUMENT_ROOT'].'/ComicMyAdmin' ;
 
-        $dispatcher->setSystemRoot('/home/hoge/html/eigyou');
+        $dispatcher->setSystemRoot($_SERVER['DOCUMENT_ROOT'].'/ComicMyAdmin');
 
         $dispatcher->setAppPosition("/ComicMyAdmin");
     } else {
