@@ -11,7 +11,7 @@ function setting(){
 
 	IncludePathSetting($dispatcher);
 
-	require_once 'Model/ModelBase.php ';
+	require_once 'Model/ModelBase.php';
 
 	
 

@@ -1,7 +1,7 @@
 <html>
 <head>
 <?php
-header("HTTP/1.1 200");
+//header("HTTP/1.1 200");
 ?>
 <meta charset="utf-8">
 <link rel="icon" href="<?= $v->app_pos?>/Images/icon.jpg">
@@ -23,7 +23,7 @@ ComicMyAdmin
 <script src="<?=$v->app_pos?>/Plugins/fly-anim.js"></script>
 
 </head>
-
+<?php var_dump($_SESSION); ?>
 <body class="back-img">
 <div class="app-container">
 <div class="top-container" id="fly-anim-area">

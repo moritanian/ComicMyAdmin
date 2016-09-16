@@ -1,4 +1,7 @@
 <title>ログインページ</title>
+<?php var_dump($_SESSION); 
+	var_dump($_COOKIE);
+?>
 <h1>ログインしてください</h1>
 <form method="post" action="">
     ユーザ名: <input type="text" name="username" value= "<?=$v->h($v->username) ?>" >

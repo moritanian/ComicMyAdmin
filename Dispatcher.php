@@ -86,12 +86,15 @@ class Dispatcher
         // パラメータより取得したコントローラー名によりクラス振分け
 
         //$className = ucfirst(strtolower($controller)) . 'Controller'; 
+
+        // 注意！　postしたページにも戻るボタンで戻れるようにしてる
         session_cache_limiter('private_no_expire');
+
         @session_start();   
         $className = ucfirst($controller) . 'Controller';
         if($className != "LoginController"){  
             if (!isset($_SESSION['username'])) {
-                header('Location:http://localhost/ComicMyAdmin/Login');
+                header("Location:$this->app_pos/Login");
                 echo("session no");
                 exit();
             }   
