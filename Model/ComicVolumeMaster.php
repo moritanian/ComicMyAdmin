@@ -1,5 +1,5 @@
 <?php
-require_once( 'Model/ModelBase.php ');
+require_once( 'Model/ModelBase.php');
 
 class ComicVolumeMaster extends ModelBase
 {

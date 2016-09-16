@@ -1,6 +1,6 @@
 <?php 
 
-require_once( "Request.php" );
+require_once( "request.php" );
 
 require_once( "util.php");
 
