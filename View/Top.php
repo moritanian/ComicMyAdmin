@@ -19,7 +19,7 @@
 		</div>
 	</div>
 	<div class="month-news">
-		<div class="title"><h3> | 今月の新刊情報</h3></div>
+		<div class="title"><h3> <a href="<?=$v->app_pos?>/ComicAdmin/NewPublication">| 今月の新刊情報 </a></h3></div>
 		<ul>
 			<li>ゼノンの逆襲1</li>
 		</ul>

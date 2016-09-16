@@ -1,3 +1,12 @@
+<script type="text/javascript">
+	function cancel_all_check(){
+		$(".add-mylist-check").each(function(){
+			$(this).removeAttr("checked");
+		});
+	}
+
+</script>
+
 <div class="warn">
 	<?php if($v->is_add): ?> マイリストに追加されました <?php endif; ?>
 </div>
@@ -34,9 +43,9 @@ foreach($v->all_comic_data as $key => $comic_data): ?>
 	<?php endif; ?>
 	<div class='series-title <?php if($comic_data['is_contain_my_list']) echo('contain') ?>'>
 		<div class="series-select-box">
-			<input type="checkbox" name="id<?=$comic_data['series_id']?>" value="id<?=$comic_data['series_id']?>" <?php if($comic_data['is_contain_my_list']): ?> disabled = 'disabled' <?php endif; ?>>
+			<input class="add-mylist-check" type="checkbox" name="id<?=$comic_data['series_id']?>" value="id<?=$comic_data['series_id']?>" <?php if($comic_data['is_contain_my_list']): ?> disabled = 'disabled' <?php endif; ?>>
 		</div>
-		<a href='./ComicVolumeList?series_id=<?=$comic_data['series_id']?>'> 
+		<a href='./VolumeMyList?series_id=<?=$comic_data['series_id']?>'> 
 		<?=$comic_data['title']?>
 		</a>
 	</div>
@@ -45,5 +54,6 @@ foreach($v->all_comic_data as $key => $comic_data): ?>
 
 </ul>
 <input type="submit" name="add" value="mylistに追加">
+<input type="button" value="選択をすべて取り消し" onclick="cancel_all_check()">
 </form>
 </div>
