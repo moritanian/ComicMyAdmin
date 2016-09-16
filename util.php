@@ -14,7 +14,7 @@ function IncludePathSetting($dispatcher){
 
         //本番環境
 
-        $path = '/home/hoge/smarty/libs/';
+        $path = $_SERVER['SERVER_NAME'] . "/ComicMyAdmin" ;
 
         $path .= PATH_SEPARATOR . $_SERVER['DOCUMENT_ROOT'].'/ComicMyAdmin' ;
 
