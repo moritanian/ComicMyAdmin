@@ -31,12 +31,12 @@ ComicMyAdmin
 	
 	<div class="top-bar">
 		<ul>
-			<li class="top-icon"><a href="<?= $v->app_pos?>/ComicAdmin">Top</a></li>
-			<li class=""><a href="<?= $v->app_pos?>/User/">Mypage</a></li>
-			<li><a href="<?= $v->app_pos?>/ComicAdmin/SeriesMyList">MyList</a></li>
-			<li><a href="<?= $v->app_pos?>/ComicAdmin/SeriesAllList">AddTitle</a></li>
+			<li class="top-icon"><a href="<?= $v->app_pos?>/ComicAdmin/?">Top</a></li>
+			<li class=""><a href="<?= $v->app_pos?>/User/?">Mypage</a></li>
+			<li><a href="<?= $v->app_pos?>/ComicAdmin/SeriesMyList/?">MyList</a></li>
+			<li><a href="<?= $v->app_pos?>/ComicAdmin/SeriesAllList/?">AddTitle</a></li>
 			<?php if($v->authority > 1): ?>
-			<li><a href="<?=$v->app_pos?>/ComicAdmin/AddComicSeries">AddSeries</a></li>
+			<li><a href="<?=$v->app_pos?>/ComicAdmin/AddComicSeries/?">AddSeries</a></li>
 			<?php endif; ?>
 		
 			
