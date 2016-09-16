@@ -39,7 +39,7 @@ class LoginController
 		$this->execLogin();
 		try {
 			$v = $this;
-			require_once("/../View/Login/Login.php");
+			require_once("View/Login/Login.php");
 		} catch (Exception $e) {
 			echo("エラーが発生しました。");
 		}

@@ -12,7 +12,7 @@ require_once( 'Model/UserComicSeriesData.php' );
 
 require_once( 'Model/UserComicVolumeData.php' );
 
-require_once( 'Model/ModelBase.php ');
+require_once( 'Model/ModelBase.php');
 
 require_once( 'Model/UserData.php');
 
