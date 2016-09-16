@@ -163,6 +163,17 @@ class ComicAdminController  extends ControllerBase{
 		$this->view->show("ComicAdmin/VolumeList");
 	}
 
+	// 新刊ページ
+	public function NewPublicationAction(){
+		$this->view->publication_list = $this->getMonthlyPublication();
+		$this->view->show("ComicAdmin/NewPublication");
+
+	}
+
+	public function notFoundErrorAction(){
+		$this->view->show("404Error");
+	}
+
 	// testページ
 	public function testAction(){
 		echo("test");
@@ -496,6 +507,10 @@ class ComicAdminController  extends ControllerBase{
 			"http://degucchan.noor.jp/wp-content/uploads/2014/11/300.jpg"
 			);
 		return $images;
+	}
+
+	private function getMonthlyPublication(){
+		return ;
 	}
 }
 

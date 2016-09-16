@@ -148,9 +148,12 @@ class Dispatcher
         $redirectUrl = "/View/404Error.php";
         header("HTTP/1.0 404 Not Found");
         $v = (object) array('app_pos' => $this->app_pos);
-        //$v->sysRoot = $this->sysRoot;
-        require_once($redirectUrl);
-       // print(file_get_contents($redirectUrl));
+        
+        $file_name =   $this->sysRoot . '/Controller/ComicAdminController.php';
+        require_once $file_name;
+
+        $controllerInstance = new ComicAdminController("/", $this->app_pos);
+        $controllerInstance->notFoundErrorAction();
         exit();
     }
 
