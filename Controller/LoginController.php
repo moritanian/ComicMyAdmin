@@ -37,12 +37,9 @@ class LoginController
 
 	public function indexAction(){
 		$this->execLogin();
-		try {
-			$v = $this;
-			require_once("View/Login/Login.php");
-		} catch (Exception $e) {
-			echo("エラーが発生しました。");
-		}
+		$v = $this;
+		require_once("View/Header.php");
+		require_once("View/Login/Login.php");
 		
 	}
 
@@ -53,14 +50,15 @@ class LoginController
 		if(isset($this->error)){
 			header("HTTP/1.0 403");
 		}
-		//echo($v->error);
-		require_once("/../View/Login/Registration.php");
+		require_once("View/Header.php");
+		require_once("View/Login/Registration.php");
 	}
 
 	public function LogoutAction(){
 		$this->execLogout();
 		$v = $this;
-		require_once("/../View/Login/Logout.php");
+		require_once("View/Header.php");
+		require_once("View/Login/Logout.php");
 	}
 
 	/**
@@ -129,14 +127,13 @@ class LoginController
 		                : '$2y$10$abcdefghijklmnopqrstuv' // ユーザ名が存在しないときだけ極端に速くなるのを防ぐ
 		        )
 		    ) {
-		    	echo ("success");
 		        // 認証が成功したとき
 		        // セッションIDの追跡を防ぐ
 		        session_regenerate_id(true);
 		        // ユーザ名をセット
 		        $_SESSION['username'] = $this->username;
 		        // ログイン完了後に / に遷移
-		        header("Location: $this->app_pos/ComicAdmin/");
+		        header("Location: $this->app_pos/ComicAdmin/?time=" . time());
 		        exit;
 		    }
 		    // 認証が失敗したとき
