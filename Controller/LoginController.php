@@ -1,5 +1,6 @@
 <?php
 require_once( 'Controller/ControllerBase.php' );
+require_once('Model/UserData.php');
 class LoginController
 {
 	// 事前に生成したユーザごとのパスワードハッシュの配列
@@ -114,7 +115,6 @@ class LoginController
 		                ? $this->hashes[$this->username]
 		                : '$2y$10$abcdefghijklmnopqrstuv');
 		    */
-		    require_once('/Model/UserData.php');
 			$userDataModel = new UserData();
 			$user = $userDataModel->getByUserName($this->username);
 			
@@ -149,7 +149,6 @@ class LoginController
 		$password = filter_input(INPUT_POST, 'password');
 		if($this->username && mb_strlen($password) >= 6){
 			$hash = $this->genarate_hash($password);
-			require_once('Model/UserData.php');
 			$userDataModel = new UserData();
 			$user = $userDataModel->getByUserName($this->username);
 			if($user != null){
