@@ -149,7 +149,7 @@ class LoginController
 		$password = filter_input(INPUT_POST, 'password');
 		if($this->username && mb_strlen($password) >= 6){
 			$hash = $this->genarate_hash($password);
-			require_once('/Model/UserData.php');
+			require_once('Model/UserData.php');
 			$userDataModel = new UserData();
 			$user = $userDataModel->getByUserName($this->username);
 			if($user != null){
