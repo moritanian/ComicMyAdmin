@@ -2,7 +2,7 @@
 
 require_once( 'Controller/ControllerBase.php' );
 
-require_once('/Model/UserData.php');
+require_once('Model/UserData.php');
 
 class UserController extends ControllerBase {
 
