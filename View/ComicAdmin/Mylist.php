@@ -1,5 +1,3 @@
-
-
 <div class="series-my-list">
 <h3>MyList</h3>
 <ul>
@@ -15,7 +13,7 @@ foreach($v->mylist as $key => $comic_data): ?>
 		<?php endif; ?>
 
 		<div class='series-title'>
-			<a href='./VolumeMyList?series_id=<?=$comic_data['series_id']?>'> 
+			<a href="#" onclick="linkWithTimeStamp('<?=$v->app_pos?>/ComicAdmin/VolumeMyList?series_id=<?=$comic_data['series_id']?>')"> 
 			<?=$comic_data['title']?>
 			</a>
 		</div>

@@ -88,7 +88,7 @@ class Dispatcher
         //$className = ucfirst(strtolower($controller)) . 'Controller'; 
 
         // 注意！　postしたページにも戻るボタンで戻れるようにしてる
-        session_cache_limiter('private_no_expire');
+        //session_cache_limiter('private_no_expire');
 
         @session_start();   
         $className = ucfirst($controller) . 'Controller';
@@ -142,8 +142,6 @@ class Dispatcher
         }
 
         $controllerInstance->$actionMethod();
-
-        
 
     }
 

@@ -1,9 +1,12 @@
-<html>
+<html lang="ja" manifest="<?=$v->app_pos?>/no-cache.appcache">
 <head>
 <?php
 //header("HTTP/1.1 200");
 ?>
 <meta charset="utf-8">
+<meta http-equiv="Pragma" content="no-cache">
+<meta http-equiv="Cache-Control" content="no-cache">
+<meta http-equiv="Expires" content="0">
 <link rel="icon" href="<?= $v->app_pos?>/Images/icon.jpg">
 <link rel=stylesheet href="<?= $v->app_pos?>/StyleSheet/style1.css" type="text/css">
 <title>
@@ -20,7 +23,9 @@ ComicMyAdmin
 <link href="<?= $v->app_pos?>/Plugins/jqueryUI/jquery-ui.min.css" rel="stylesheet" />
 <script src="<?= $v->app_pos?>/Plugins/jqueryUI/jquery-ui.min.js"></script>
 
-<script src="<?=$v->app_pos?>/Plugins/fly-anim.js"></script>
+<script src="<?=$v->app_pos?>/Scripts/fly-anim.js"></script>
+
+<script src="<?=$v->app_pos?>/Scripts/util.js"></script>
 
 </head>
 <?php var_dump($_SESSION); ?>
@@ -31,12 +36,12 @@ ComicMyAdmin
 	
 	<div class="top-bar">
 		<ul>
-			<li class="top-icon"><a href="<?= $v->app_pos?>/ComicAdmin/?">Top</a></li>
-			<li class=""><a href="<?= $v->app_pos?>/User/?">Mypage</a></li>
-			<li><a href="<?= $v->app_pos?>/ComicAdmin/SeriesMyList/?">MyList</a></li>
-			<li><a href="<?= $v->app_pos?>/ComicAdmin/SeriesAllList/?">AddTitle</a></li>
+			<li class="top-icon"><a href="#" onclick="linkWithTimeStamp('<?= $v->app_pos?>/ComicAdmin/')">Top</a></li>
+			<li class=""><a href="#" onclick="linkWithTimeStamp('<?= $v->app_pos?>/User')">Mypage</a></li>
+			<li><a href="#" onclick="linkWithTimeStamp('<?= $v->app_pos?>/ComicAdmin/SeriesMyList')">MyList</a></li>
+			<li><a href="#" onclick="linkWithTimeStamp('<?= $v->app_pos?>/ComicAdmin/SeriesAllList')">AddTitle</a></li>
 			<?php if($v->authority > 1): ?>
-			<li><a href="<?=$v->app_pos?>/ComicAdmin/AddComicSeries/?">AddSeries</a></li>
+			<li><a href="#" onclick="linkWithTimeStamp('<?=$v->app_pos?>/ComicAdmin/AddComicSeries')">AddSeries</a></li>
 			<?php endif; ?>
 		
 			

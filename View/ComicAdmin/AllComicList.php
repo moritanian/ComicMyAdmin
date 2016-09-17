@@ -45,7 +45,7 @@ foreach($v->all_comic_data as $key => $comic_data): ?>
 		<div class="series-select-box">
 			<input class="add-mylist-check" type="checkbox" name="id<?=$comic_data['series_id']?>" value="id<?=$comic_data['series_id']?>" <?php if($comic_data['is_contain_my_list']): ?> disabled = 'disabled' <?php endif; ?>>
 		</div>
-		<a href='./VolumeMyList?series_id=<?=$comic_data['series_id']?>'> 
+		<a href="#" onclick="linkWithTimeStamp('<?=$v->app_pos?>/ComicAdmin/VolumeMyList?series_id=<?=$comic_data['series_id']?>')"> 
 		<?=$comic_data['title']?>
 		</a>
 	</div>
