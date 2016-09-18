@@ -4,6 +4,8 @@ require_once( "request.php" );
 
 require_once( "util.php");
 
+require_once( 'Utils/RakutenApi.php');
+
 require_once( 'Model/ComicSeriesMaster.php' );
 
 require_once( 'Model/ComicVolumeMaster.php' );
@@ -52,12 +54,22 @@ class ControllerBase {
         $this->view->authority = $this->userData['authority'];
     }
 
+    public function notFoundErrorAction(){
+        header("HTTP/1.0 404 Not Found");
+        $this->view->show("404Error");
+    }
+
+    public function authorityErrorAction(){
+        header("HTTP/1.1 403 Forbidden");
+        $this->view->show("403Error");
+    }
+
+
     // 権限を満たしているか
     public function checkAuthority($authority){
         if($authority > $this->userData['authority']){
             // 権限をみたしていない場合はその旨を表示して終了
-            $v = $this;
-            require_once("/View/403Error.php");
+            $this->authorityErrorAction();
             exit();
         }
     }
