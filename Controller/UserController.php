@@ -20,6 +20,13 @@ class UserController extends ControllerBase {
 	public function EditNotificationAction(){
 		$this->view->show("User/EditNotification");
 	}
+
+	public function UserListAction(){
+		$this->checkAuthority(3);
+		$userDataModel = new UserData();    
+        $this->view->user_list = $userDataModel->getAll();
+		$this->view->show("User/UserList");
+	}
 }
 
 

@@ -5,6 +5,13 @@ class UserData extends ModelBase
 {
 	protected $tableName = 'comic_user_data';
 
+        public function getAll(){
+                $sql = sprintf('SELECT * FROM %s', $this->tableName);
+                $stmt = $this->db->query($sql);
+                $rows = $stmt->fetchAll();
+                return $rows;
+        }
+
         public function getByUserId($userId)
         {
                 $sql = sprintf('SELECT * FROM %s where user_id = :userId ', $this->tableName);

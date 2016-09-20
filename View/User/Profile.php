@@ -1,5 +1,7 @@
 <div class="user-profile">
 <h2>Profile</h2>
+<?php  if($v->authority > 2): ?><a href="#" onclick="linkWithTimeStamp('<?=$v->app_pos?>/User/UserList')">UserList</a><?php endif; ?>
+
 	<ul> 
 		<li><span class="a-text-bold">username </span> 
 			<div class="user-data-box"><?=$v->userData['user_name']?> </div>
