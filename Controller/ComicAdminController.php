@@ -170,14 +170,21 @@ class ComicAdminController  extends ControllerBase{
 
 	}
 
-	public function notFoundErrorAction(){
-		$this->view->show("404Error");
+	public function AutoAddComicAction(){
+		$search_title = $this->request->search_title;
+		$this->view->itemInfo = array();
+		if($search_title){
+			$this->view->search_title = $search_title;
+			$this->view->itemInfo = getRakutenItemBySeriesName($search_title);
+		}
+		$this->view->show("ComicAdmin/AutoAddComic");
 	}
 
 	// testページ
 	public function testAction(){
-		echo("test");
 		$this->checkAuthority(2);
+		$this->view->itemInfo = getRakutenItemByItemName("のんのんびより(10)");
+		//$this->view->itemInfo = getRakutenItemByISBN("9784785939885");
 		$this->view->show("ComicAdmin/test");
 	}
 

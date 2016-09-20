@@ -229,6 +229,14 @@ body.back-img{
 	padding:8px;
 }
 
+.user-list {
+	padding: 20px;
+}
+
+.user-list table {
+	border-color: #a0a0a0;	
+}
+
 .all-comic-list {
 	width: 500px;
 	padding: 10px;
@@ -317,7 +325,7 @@ body.back-img{
 }
 
 .volume-list .series-detail .series-img img{
-	height: 300px;
+	height: 250px;
 }
 
 .volume-list .series-detail .series-profile{
@@ -360,6 +368,10 @@ body.back-img{
 
 .volume-list .volume-list-box ul li:hover {
 	background-color: #f4d0a0;
+}
+
+.volume-list div.series-detail:after {
+	clear: both;
 }
 
 .series-my-list {
@@ -436,6 +448,39 @@ body.back-img{
 	#top : -4px;
 	position: relative;
 }	
+
+.volume-container .series-img img {
+	height: 250px;
+}
+
+.volume-container .series-img {
+	float: left;
+}
+
+.volume-container {
+	height: 300px;
+}
+
+.volume-container .series-detail .series-profile{
+	padding: 10px;
+	left: 10px;
+	position: relative;
+	display: inline-block;
+}
+
+.volume-container .series-detail .prof-element{
+	padding: 10px;
+}
+
+.volume-container .series-detail .element-key{
+	float: left;
+	padding-right: 10px;
+	display: inline-block;
+}
+
+.volume-container .series-detail .element-value{
+	display: inline-block;
+}
 
 .logout {
 	padding: 10px;
