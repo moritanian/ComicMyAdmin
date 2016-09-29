@@ -165,7 +165,10 @@ class ComicAdminController  extends ControllerBase{
 
 	// 新刊ページ
 	public function NewPublicationAction(){
-		$this->view->publication_list = $this->getMonthlyPublication();
+		$page = $this->request->page ?  $this->request->page : 1;
+		$search_text = $this->request->search_text ?  $this->request->search_text : "";
+		$this->view->info = $this->getMonthlyPublication($page, $search_text);
+		$this->view->search_text = $search_text;
 		$this->view->show("ComicAdmin/NewPublication");
 
 	}
@@ -516,8 +519,44 @@ class ComicAdminController  extends ControllerBase{
 		return $images;
 	}
 
-	private function getMonthlyPublication(){
-		return ;
+	private function getMonthlyPublication($page, $search_text){
+		$month = date("m");
+		$year = date("Y");
+		$info = getRakutenMonthlyPublication($year, $month);
+		$itemPerPage = 20;
+		$index = ($page - 1) * $itemPerPage;
+
+		$app_info = array();
+		if($search_text){
+			echo("se = ".$search_text);
+			foreach ($info as $key => $item) {
+				similar_text($item['title'], $search_text, $percent);
+				if($percent> 40){
+					echo((int)$percent. " ");
+					array_push($app_info, $item);
+				}
+			}
+		}else{
+			$app_info = $info;
+		}
+
+
+		$slice_info = array_slice($app_info, $index, $itemPerPage);
+		$item_all = count($app_info);
+		$pages = (int)(($item_all + $itemPerPage - 1)/$itemPerPage);
+		$data = array(
+			'year'	=> $year,
+			'month'	=> $month,
+			'page'	=> $page,
+			'itemPerPage' => $itemPerPage,
+			'pages'	=> $pages,
+			'item_all'	=> $item_all
+			);
+		$ret = array(
+			"data"		=> $data,
+			"item_list" => $slice_info
+			); 
+		return $ret;
 	}
 }
 

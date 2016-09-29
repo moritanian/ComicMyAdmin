@@ -7,7 +7,9 @@ header("HTTP/1.1 404 Not Found");
 <title>Error 404 Not Found</title>
 </head>
 <body>
-<h1>ページが見つかりませんでした</h1>
-<a href="<?=$v->app_pos?>/ComicAdmin">topへ</a>
+<div class="contents-box">
+	<h1>ページが見つかりませんでした</h1>
+	<a href="<?=$v->app_pos?>/ComicAdmin">topへ</a>
+</div>
 </body>
 </html>

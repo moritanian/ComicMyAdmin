@@ -30,6 +30,10 @@
 	
 }
 
+.inline-block {
+	display: inline-block;
+}
+
 .separator {
 	height: 1px;
     border: none;
@@ -138,6 +142,10 @@ body.back-img{
 	margin: 4px;
 }
 
+.top-bar li.right-side-bar {
+	
+}
+
 .top-bar ul li {
 	float: left;
 	height:40px;
@@ -168,6 +176,10 @@ body.back-img{
 	width:600px;
 	height: 300px;
 
+}
+
+.contents-box {
+	padding: 20px;
 }
 
 .top-page {
@@ -229,12 +241,12 @@ body.back-img{
 	padding:8px;
 }
 
-.user-list {
-	padding: 20px;
-}
-
 .user-list table {
 	border-color: #a0a0a0;	
+}
+
+.user-list table tr.me{
+	background-color: gray;
 }
 
 .all-comic-list {
@@ -488,6 +500,15 @@ body.back-img{
 
 .login {
 	padding: 15px;
+}
+
+.google-login {
+	padding-left: 30%;
+}
+
+.google-login a img{
+	width: 180px;
+	height: 46px;
 }
 
 .test-container .tab2{
