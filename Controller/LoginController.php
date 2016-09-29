@@ -1,18 +1,11 @@
 <?php
 require_once( 'Controller/ControllerBase.php' );
 require_once('Model/UserData.php');
-class LoginController
+class LoginController extends ControllerBase
 {
-	// 事前に生成したユーザごとのパスワードハッシュの配列
-	private $hashes = [
-    	'morita' => '$2y$10$0k4wTlhovbQCjDDj9ExSXO8.JyHBRsZWEaqJIbYH/t4ByKZnhKfri',
-	];
-
 	private $is_login = FALSE;
 	
 	public $username;
-
-	private $app_pos;
 
 	function __get($key){
 		if($key=='app_pos'){
@@ -22,13 +15,14 @@ class LoginController
 
 	public function __construct($url, $app_pos)
 	{
-		$this->app_pos= $app_pos;
 		 // セッション開始
     	@session_start();
     	// ログインしていれば / に遷移
     	if (isset($_SESSION['username'])) {
         	$is_login = True;
         }
+
+         parent::__construct($url, $app_pos);
 	}
 
 	public function isLogin(){
@@ -38,29 +32,83 @@ class LoginController
 
 	public function indexAction(){
 		$this->execLogin();
-		$v = $this;
-		require_once("View/Header.php");
-		require_once("View/Login/Login.php");
 		
+		$this->view->username = $this->username;
+		$this->view->token = $this->generate_token();
+		$this->view->show("Login/Login", true);
 	}
 
 	//新規登録
 	public function RegistrationAction(){
 		$this->execRegistration();
-		$v = $this;
 		if(isset($this->error)){
 			header("HTTP/1.0 403");
 		}
-		require_once("View/Header.php");
-		require_once("View/Login/Registration.php");
+		$this->view->username = $this->username;
+		$this->view->error = $this->error;
+		$this->view->show("Login/Registration", true);
 	}
 
 	public function LogoutAction(){
 		$this->execLogout();
 		$v = $this;
-		require_once("View/Header.php");
-		require_once("View/Login/Logout.php");
+		$this->view->show("Login/Logout", 1);
 	}
+
+	public function SignInWithGoogleAction(){
+		require_once("Utils/OAuth.php");
+		OAuthIndex();
+	}
+
+	public function OAuthExecAction(){
+		require_once("Utils/OAuth.php");
+		$result = OAuthExec();
+		if(isset($result['id']) && $result['id']){
+			$userDataModel = new UserData();
+			$g_id = $result['id'];
+			$g_user_name = $result['name'];
+			$user = $userDataModel->getByGoogleId($result['id']);
+			// 新規登録の時
+			if($user == null){
+				// ユーザデータを登録してからアプリ用ユーザネームを登録する画面へ
+				session_regenerate_id(true);
+		        $_SESSION['g_id'] = $g_id;
+		        $user_data = array(
+		        		'user_name' => '',
+		        		'g_user_id' => $g_id,
+		        		'authority' => 0);
+
+		        $userDataModel->insert($user_data);
+ 				$this->redirectURL("Login/SetUp", array("g_name" => $g_user_name));
+			}else{
+				if($user['user_name'] == ""){ // ユーザ名登録されていないときは登録画面へ
+					session_regenerate_id(true);
+		        	$_SESSION['g_id'] = $g_id;
+					$this->redirectURL("Login/SetUp", array("g_name" => $g_user_name));
+				}
+				// すでに登録されているときはトップへ
+				 session_regenerate_id(true);
+		        // ユーザ名をセット
+		        $_SESSION['username'] = $user['user_name'];
+		        // ログイン完了後に / に遷移
+		        $this->redirectURL("ComicAdmin", array(), true);
+			}
+		}
+	}
+
+	// google アカウントで新規登録(oAuth　を通った後に呼ばれる)
+	public function SetUpAction(){
+		// g_id が登録されてない場合は不正なアクセス
+		if(!isset($_SESSION['g_id'])){
+			$this->authorityErrorAction();
+			exit;
+		}
+		$g_id =	$_SESSION['g_id'];
+		$ret = $this->execSetUp($g_id);
+		$this->view->gName = $this->request->g_name;
+		$this->view->err = isset($ret['error']) ? $ret['error'] : "";
+		$this->view->show("Login/SetUp", true);
+	}	
 
 	/**
 	 * CSRFトークンの生成
@@ -89,17 +137,6 @@ class LoginController
 	    return $token === $this->generate_token();
 	}
 
-	/**
-	 * htmlspecialcharsのラッパー関数
-	 *
-	 * @param string $str
-	 * @return string
-	 */
-	public function h($str)
-	{
-	    return htmlspecialchars($str, ENT_QUOTES, 'UTF-8');
-	}
-
 	// ログイン処理
 	private function execLogin(){
 		// ユーザから受け取ったユーザ名とパスワード
@@ -108,13 +145,6 @@ class LoginController
 
 		// POSTメソッドのときのみ実行
 		if ($_SERVER['REQUEST_METHOD'] === 'POST') {
-			/*echo($this->validate_token(filter_input(INPUT_POST, 'token')));
-			echo($password);
-			echo ($this->hashes[$this->username]);
-			echo ( isset($this->hashes[$this->username])
-		                ? $this->hashes[$this->username]
-		                : '$2y$10$abcdefghijklmnopqrstuv');
-		    */
 			$userDataModel = new UserData();
 			$user = $userDataModel->getByUserName($this->username);
 			
@@ -179,6 +209,44 @@ class LoginController
 		session_destroy();
 	}
 
+	public function ValidateUserName($name){
+        $min_len = 4;
+        $ret = array('success' => false,
+                     'error' => ''
+        );
+        if(strlen($name) >= $min_len){
+            $userDataModel = new UserData();
+            $user = $userDataModel->getByUserName($name);
+            if($user != null){
+                $ret['error'] = "同一のユーザ名が登録済みです";
+            }else{
+                $ret['success'] = true;
+            }
+        }else{
+            $ret['error'] = 'ユーザ名が短かすぎます。ユーザ名は' . $min_len . '以上必要です。';
+        }
+        return $ret;
+    }
 
+    function execSetUp($g_id){
+		$ret = array();
+		$user_name = $this->request->user_name;
+		if($user_name) {
+			$ret = $this->ValidateUserName($user_name);
+			if($ret['success']){
+				$userDataModel = new UserData();   
+				$result = $userDataModel->updateUserNameByGoogleUserId($g_id, $user_name);
+				if($result){
+					$_SESSION['username'] = $user_name;
+					header("Location: $this->app_pos/ComicAdmin/?time=" . time());
+		        	exit;
+		        }
+		        $ret['error'] = "データ登録時にエラーが発生しました。";
+			}else{
+
+			}
+		}
+		return $ret;
+	}
 }
 ?>

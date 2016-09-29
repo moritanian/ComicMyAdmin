@@ -94,8 +94,7 @@ class Dispatcher
         $className = ucfirst($controller) . 'Controller';
         if($className != "LoginController"){  
             if (!isset($_SESSION['username'])) {
-                header("Location:$this->app_pos/Login");
-                echo("session no");
+                header("Location:$this->app_pos/Login?time=" . time());
                 exit();
             }   
         }
@@ -106,7 +105,6 @@ class Dispatcher
         $file_name =   $this->sysRoot . '/Controller/' . $className . '.php';
         // ファイル名不正か
         if(!file_exists($file_name)){
-           // header('Location:' . $this->sysRoot. 'ComicAdmin/ErrorPage.php')
             $this->notFoundError();
         }
         require_once $file_name;

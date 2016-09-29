@@ -12,5 +12,6 @@
 	<li><button class="home-button" type="button" onclick="go_home()">
 	<div class="ui-icon ui-icon-home "></div>homeへ</button></li>
 </div>
+
 </div>
 </html>

@@ -1,17 +1,22 @@
 <?php
 class MyTemplate
 {
-    function show($view)
+    function show($view, $notLogin = false)
     {
         $v = $this;
         include("View/Header.php"); 
-        include("View/TopBar.php");
+        if(!$notLogin){
+           
+            include("View/TopBar.php");
+        }
         include("View/{$view}.php");
-    	include("View/Footer.php");
+    	if(!$notLogin){
+            include("View/Footer.php");
+        }
     }
-}
 
-function h($str) {
+    public function h($str) {
     	return htmlspecialchars($str, ENT_QUOTES, 'UTF-8');
 	}
+}
 ?>

@@ -42,6 +42,8 @@ ComicMyAdmin
 
 </head>
 <?php echo("response code = " . http_response_code()); ?>
+<?php echo ("<br> session = " ); var_dump($_SESSION); 
+?>
 <body class="back-img">
 <div class="app-container">
 	<div class="top-container" id="fly-anim-area">

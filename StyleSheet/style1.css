@@ -130,7 +130,7 @@ body.back-img{
 }
 
 .top-bar {
-	width: 550px;
+	width: 80%;
 	#text-align: center;
 	height: 40px;
 	margin:0 20px 0;
@@ -143,7 +143,8 @@ body.back-img{
 }
 
 .top-bar li.right-side-bar {
-	
+	padding-right: 20px;
+	float:right;
 }
 
 .top-bar ul li {

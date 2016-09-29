@@ -25,9 +25,8 @@ class UserController extends ControllerBase {
 		$this->checkAuthority(3);
 		$userDataModel = new UserData();    
         $this->view->user_list = $userDataModel->getAll();
+        $this->view->user_id = $this->userData['user_id'];
 		$this->view->show("User/UserList");
 	}
 }
-
-
 ?>

@@ -36,11 +36,7 @@ class ControllerBase {
     {
         $this->app_pos = $app_pos;
         //user data
-        $userName = $_SESSION['username'] ? $_SESSION['username'] : "";
-  
-        $userDataModel = new UserData();
-            
-        $this->userData = $userDataModel->getByUserName($userName);
+        $userName = isset($_SESSION['username']) ? $_SESSION['username'] : "";
 
         // リクエスト
 
@@ -51,7 +47,17 @@ class ControllerBase {
         $this->view = new MyTemplate();
 
         $this->view->app_pos = $app_pos;
-        $this->view->authority = $this->userData['authority'];
+  
+        if($userName){
+        
+            $userDataModel = new UserData();
+            
+            $this->userData = $userDataModel->getByUserName($userName);         
+
+            $this->view->authority = $this->userData['authority'];
+
+            $this->view->user_name = $this->userData['user_name'];
+        }
     }
 
     public function notFoundErrorAction(){
@@ -63,7 +69,6 @@ class ControllerBase {
         header("HTTP/1.1 403 Forbidden");
         $this->view->show("403Error");
     }
-
 
     // 権限を満たしているか
     public function checkAuthority($authority){
@@ -82,8 +87,31 @@ class ControllerBase {
     public function user_id(){
         return $this->userData['user_id'];
     }  
+    
     public function request(){
         return $this->request;
+    }
+
+    public function redirectURL($path, $get_params, $timeStamp){
+        $url = $this->app_pos . "/" . $path;
+        foreach ($get_params as $key => $value) {
+            if($value == reset($get_params)){
+                $url .= "?";
+            }else{
+                $url .= "&";
+            }
+            $url .= $key . "=" . $value;
+        }
+        if($timeStamp){
+            if(count($get_params)){
+                $url .= "&";
+            }else{
+                $url .= "?";
+            }    
+            $url .= "time=" . time();
+        }
+        header("Location: " . $url);
+        exit;
     }
 }
 ?>
