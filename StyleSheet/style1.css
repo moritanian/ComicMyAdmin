@@ -41,6 +41,23 @@
     margin: 0px 10px;
 }
 
+.rotate-ini {
+	
+}
+
+.rotate-z {
+	-moz-transition: -moz-transform 0.2s linear;
+    -webkit-transition: -webkit-transform 0.2s linear;
+    -o-transition: -o-transform 0.3s linear;
+    -ms-transition: -ms-transform 0.3s linear; 
+    transition: transform 0.2s linear; 
+    
+	 -webkit-transform: rotateX(180deg);
+    -o-transform: rotateX(180deg);
+    -ms-transform: rotateX(180deg);
+    transform: rotateX(180deg);
+}
+
 #fly-anim-area .butterfly {
 	background-image: url('../Images/butterfly.png');
 }
@@ -495,6 +512,27 @@ body.back-img{
 	display: inline-block;
 }
 
+.d3-content .search {
+	padding: 0 20px 10px;
+}
+
+.d3-content #info-text {
+	position: relative;
+	top:-50px;
+	#background-color: #671c54;
+	color: white;
+	margin: auto;
+	width:50%;
+	height: 60px;
+
+	background: linear-gradient(to bottom, rgba(84,84,84,0.97) 0%,rgba(53,53,53,0.97) 50%,rgba(41,41,41,0.97) 50%,rgba(15,15,15,0.97) 100%);
+	padding: 3px 20px 2px;
+	-webkit-box-shadow: inset 0 1px 8px rgba(0, 0, 0, .7);
+    -moz-box-shadow: inset 0 1px 8px rgba(0, 0, 0, .7);
+    box-shadow: inset 0 1px 8px rgba(0, 0, 0, .7);
+
+}
+
 .logout {
 	padding: 10px;
 }
@@ -504,7 +542,9 @@ body.back-img{
 }
 
 .google-login {
-	padding-left: 30%;
+	margin-left: 30%;
+	box-shadow: inset 0 1px 8px rgba(100, 100, 100, .7);
+	background-color:  rgba(96, 202, 98, 0.39);
 }
 
 .google-login a img{
@@ -546,3 +586,5 @@ body.back-img{
 	text-decoration: none;
 	display: block;
 }
+
+

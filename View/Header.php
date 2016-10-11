@@ -43,6 +43,7 @@ ComicMyAdmin
 </head>
 <?php echo("response code = " . http_response_code()); ?>
 <?php echo ("<br> session = " ); var_dump($_SESSION); 
+	echo("<br> cookies = "); var_dump($_COOKIE);
 ?>
 <body class="back-img">
 <div class="app-container">

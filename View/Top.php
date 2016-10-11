@@ -36,6 +36,9 @@
 
 	<div class="release-news">
 		<h3> | アプリ新規機能リリース情報</h3>
+		<ul>
+			<li><a href="#" onclick="linkWithTimeStamp('<?=$v->app_pos?>/ComicAdmin/Libre3D')">Libre3D </a></li>
+		</ul>
 
 	</div>
 </div>

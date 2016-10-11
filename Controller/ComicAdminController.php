@@ -167,7 +167,7 @@ class ComicAdminController  extends ControllerBase{
 	public function NewPublicationAction(){
 		$page = $this->request->page ?  $this->request->page : 1;
 		$search_text = $this->request->search_text ?  $this->request->search_text : "";
-		$this->view->info = $this->getMonthlyPublication($page, $search_text);
+		$this->view->info = $this->getMonthlyPublication($page, $search_text, true);
 		$this->view->search_text = $search_text;
 		$this->view->show("ComicAdmin/NewPublication");
 
@@ -189,6 +189,10 @@ class ComicAdminController  extends ControllerBase{
 		$this->view->itemInfo = getRakutenItemByItemName("のんのんびより(10)");
 		//$this->view->itemInfo = getRakutenItemByISBN("9784785939885");
 		$this->view->show("ComicAdmin/test");
+	}
+
+	public function Libre3DAction(){
+		$this->view->show("ComicAdmin/Libre3D");
 	}
 
 	// タイトルをマスタに追加
@@ -519,10 +523,10 @@ class ComicAdminController  extends ControllerBase{
 		return $images;
 	}
 
-	private function getMonthlyPublication($page, $search_text){
+	private function getMonthlyPublication($page, $search_text, $new = false){
 		$month = date("m");
 		$year = date("Y");
-		$info = getRakutenMonthlyPublication($year, $month);
+		$info = $new ? getRakutenNewlyPublication(): getRakutenMonthlyPublication($year, $month);
 		$itemPerPage = 20;
 		$index = ($page - 1) * $itemPerPage;
 

@@ -1,16 +1,16 @@
 window.onload = function(){
 
 	var settings = {
-		interval : 3000, // cubeを出す間隔
-		dur : 30000, // 	cubeが持続する時間
+		interval : 6000, // cubeを出す間隔
+		dur : 20000, // 	cubeが持続する時間
 		windowPos : $("#fly-anim-area").position(),
 		windowSize : {width : $("#fly-anim-area").width(),
 						height :  $("#fly-anim-area").height() - 20
 						}
 	}
 
-	var img_width = 70;
-	var img_height = 32;
+	var img_width = 120;
+	var img_height = 50;
 	
 	// cubeの最終スタイル設定
 	var styleFor = {
@@ -76,6 +76,9 @@ window.onload = function(){
 //console.log(settings.windowSize);
 	// execute
 	cube.init();
+	for(var i=0; i<2; i++){
+		cube.add();
+	}
 	setInterval(function(){
 		cube.add();
 	},settings.interval);
