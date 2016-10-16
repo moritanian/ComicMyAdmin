@@ -15,9 +15,7 @@ header('Content-type: application/json');
 	$info = array();
 	if($is_monthly_new){
 		$info = getRakutenNewlyPublication();
-	}else{
-		$search_text = $search_text ? $search_text : "";
-		error_log($search_text);
+	}else if($search_text){
 		$info = getRakutenItemByItemName($search_text);
 	}
 	echo json_encode($info);
